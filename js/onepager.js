@@ -113,8 +113,8 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   // 14 = D17*100/D11
   const otsPct = D11 > 0 ? Math.abs((D17 * 100) / D11) : 0;
 
-  // 15 = D11 - D17   (display positive)
-  const D15 = Math.abs(D11 - D17);
+  // 15 = UCI (as per your confirmation)
+const D15 = posNum(pick(r, ['UCI']));
 
   // 16 = D17-(D11-D16-D14)
   const plImpact = Math.abs(D17 - (D11 - D16 - D14));
