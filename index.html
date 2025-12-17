@@ -76,7 +76,7 @@
 <div class="page">
 
   <div class="print-header">
-    <img src="assets/mpgb-header.png" alt="MPGB Header">
+    <img src="assets/mpgb_header.png" alt="MPGB Header">
   </div>
 
   <div class="office-line">
@@ -89,45 +89,51 @@
 
   <!-- FULL ONE-PAGER TABLE -->
   <table id="printTable">
-    <tr><td>1</td><td>हितग्राही का नाम</td><td id="p_name"></td></tr>
-    <tr><td>2</td><td>हितग्राही का मोबाइल नंबर</td><td id="p_mobile"></td></tr>
-    <tr><td>3</td><td>ऋण का उद्देश्य</td><td id="p_purpose"></td></tr>
-    <tr><td>4</td><td>खाता क्रमांक</td><td id="p_acct"></td></tr>
-    <tr><td>5</td><td>स्वीकृति दिनांक</td><td id="p_date"></td></tr>
-    <tr><td>6</td><td>स्वीकृत राशि</td><td id="p_amt"></td></tr>
-    <tr><td>7</td><td>बकाया राशि</td><td id="p_outstanding"></td></tr>
-    <tr><td>8</td><td>एनपीए दिनांक</td><td id="p_npa_date"></td></tr>
-    <tr><td>9</td><td>आस्ति कोड</td><td id="p_asset_code"></td></tr>
-    <tr><td>10</td><td>प्रावधान</td><td id="p_provision"></td></tr>
-    <tr><td>11</td><td>UCI</td><td id="p_uci"></td></tr>
-    <tr><td>12</td><td>URI</td><td id="p_uri"></td></tr>
-    <tr><td>13</td><td>प्रस्तावित समझौता राशि</td><td id="p_offer_amt"></td></tr>
-    <tr><td>14</td><td>समझौता राशि का प्रतिशत</td><td id="p_offer_pct"></td></tr>
-    <tr><td>15</td><td>अधिशेष (W/O)</td><td id="p_wo"></td></tr>
-    <tr><td>16</td><td>लाभ हानि का प्रभाव</td><td id="p_pl_impact"></td></tr>
-    <tr><td>17</td><td>कुल अधिशेष</td><td id="p_total_wo"></td></tr>
+  <tr><td>1</td><td>हितग्राही का नाम</td><td id="p_name"></td></tr>
+  <tr><td>2</td><td>हितग्राही का मोबाइल नंबर</td><td id="p_mobile"></td></tr>
+  <tr><td>3</td><td>ऋण का उद्देश्य</td><td id="p_purpose"></td></tr>
+  <tr><td>4</td><td>खाता क्रमांक</td><td id="p_acct"></td></tr>
+  <tr><td>5</td><td>स्वीकृति दिनांक</td><td id="p_date"></td></tr>
+  <tr><td>6</td><td>स्वीकृत राशि</td><td id="p_amt"></td></tr>
+  <tr><td>7</td><td>बकाया राशि</td><td id="p_outstanding"></td></tr>
+  <tr><td>8</td><td>एनपीए दिनांक</td><td id="p_npa_date"></td></tr>
+  <tr><td>9</td><td>आस्ति कोड</td><td id="p_asset_code"></td></tr>
+  <tr><td>10</td><td>प्रावधान</td><td id="p_provision"></td></tr>
+  <tr><td>11</td><td>UCI</td><td id="p_uci"></td></tr>
+  <tr><td>12</td><td>URI</td><td id="p_uri"></td></tr>
+  <tr><td>13</td><td>प्रस्तावित समझौता राशि</td><td id="p_offer_amt"></td></tr>
+  <tr><td>14</td><td>समझौता राशि का प्रतिशत</td><td id="p_offer_pct"></td></tr>
+  <tr><td>15</td><td>अधिशेष (W/O)</td><td id="p_wo"></td></tr>
+  <tr><td>16</td><td>लाभ हानि का प्रभाव</td><td id="p_pl_impact"></td></tr>
+  <tr><td>17</td><td>कुल अधिशेष</td><td id="p_total_wo"></td></tr>
 
-    <tr class="opinion-row">
-      <td colspan="3">शाखा प्रबंधक का अभिमत</td>
-    </tr>
-    <tr class="remarks-row"><td colspan="3"></td></tr>
+  <tr><td>18</td><td>कानूनी कार्यवाही की स्थिति</td><td id="p_legal"></td></tr>
+  <tr><td>19</td><td>सुरक्षा प्रतिभूति का विवरण</td><td id="p_security"></td></tr>
+  <tr><td>20</td><td>मौजूदा बाजार मूल्य</td><td id="p_market_value"></td></tr>
+  <tr><td>21</td><td>गिरवी संपत्ति का प्रकार</td><td id="p_property_type"></td></tr>
+  <tr><td>22</td><td>पुनर्भुगतान क्षमता</td><td id="p_repay_capacity"></td></tr>
+  <tr><td>23</td><td>प्रस्ताव का औचित्य</td><td id="p_justification"></td></tr>
+  <tr><td>24</td><td>शाखा द्वारा अनुशंसा</td><td id="p_branch_rec"></td></tr>
+  <tr><td>25</td><td>क्षेत्रीय कार्यालय की अनुशंसा</td><td id="p_ro_rec"></td></tr>
+  <tr><td>26</td><td>अन्य टिप्पणियाँ</td><td id="p_other"></td></tr>
 
-    <tr class="opinion-row">
-      <td colspan="3">क्षेत्रीय कार्यालय का अभिमत</td>
-    </tr>
-    <tr class="remarks-row"><td colspan="3"></td></tr>
+  <tr class="opinion-row">
+    <td colspan="3">शाखा प्रबंधक का अभिमत</td>
+  </tr>
+  <tr class="remarks-row"><td colspan="3"></td></tr>
 
-    <tr class="sign-row">
-      <td colspan="2">दिनांक :</td>
-      <td>शाखा प्रबंधक</td>
-    </tr>
-    <tr class="sign-row">
-      <td colspan="2">दिनांक :</td>
-      <td>क्षेत्रीय प्रबंधक</td>
-    </tr>
+  <tr class="opinion-row">
+    <td colspan="3">क्षेत्रीय कार्यालय का अभिमत</td>
+  </tr>
+  <tr class="remarks-row"><td colspan="3"></td></tr>
+
+  <tr class="sign-row">
+    <td colspan="2">दिनांक :</td><td>शाखा प्रबंधक</td>
+  </tr>
+  <tr class="sign-row">
+    <td colspan="2">दिनांक :</td><td>क्षेत्रीय प्रबंधक</td>
+  </tr>
   </table>
-
-</div>
 <!-- ================= END PRINT SECTION ================= -->
 
 
