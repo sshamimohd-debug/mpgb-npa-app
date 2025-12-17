@@ -58,8 +58,8 @@ function fillPrintTable(acctNo, rec){
   setText('pAccount', acctNo);
 
   // If your master has these fields later, they will fill automatically; else blank
-  setText('pSanctionDate', rec['Sanction Date'] || rec['Acct Open Date'] || '');
-  setText('pSanctionAmt', formatNumber(rec['Sanct Lim'] || rec['Sanction Amt'] || ''));
+  setText('pSanctionDate', formatDateSmart(rec['Acct Opn Date'] || ''));
+setText('pSanctionAmt', formatNumber(pos(rec['Sanct Lim Amount'] || 0)));
 
   // Outstanding / NPA / Asset
   setText('pOutstanding', formatNumber(rec['O/S Bal']));
