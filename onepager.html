@@ -9,9 +9,8 @@
 
 <body>
   <div class="print-header">
-    <img src="assets/mpgb_logo.png" alt="MPGB Header">
-  </div>
-
+  <img id="hdrImg" src="assets/mpgb_logo.png" alt="MPGB Header">
+</div>
   <div class="page">
     <div class="top-lines">
       <div>क्षेत्रीय कार्यालय <b id="pRO"></b></div>
@@ -54,21 +53,29 @@
       </tbody>
     </table>
 
-    <table class="sign-table">
-      <tr>
-        <td>दिनांक</td>
-        <td style="text-align:right">शाखा प्रबंधक</td>
-      </tr>
-      <tr>
-        <td colspan="2" style="height:80px">
-          क्षेत्रीय कार्यालय (RM/DRM/CMRD प्रमुख) का अनुमोदन :
-        </td>
-      </tr>
-      <tr>
-        <td>दिनांक</td>
-        <td style="text-align:right">क्षेत्रीय प्रबंधक</td>
-      </tr>
-    </table>
+    <!-- 26 के बाद वाला हिस्सा -->
+<table class="post26">
+  <tr>
+    <td class="post26-head" colspan="2">शाखा प्रबंधक का अभिमत (बिंदु क्र. 17 से 26 के अनुसार)</td>
+  </tr>
+  <tr>
+    <td class="post26-blank" colspan="2"></td>
+  </tr>
+  <tr>
+    <td class="post26-date">दिनांक</td>
+    <td class="post26-sign">शाखा प्रबंधक</td>
+  </tr>
+  <tr>
+    <td class="post26-head" colspan="2">क्षेत्रीय कार्यालय (RM/DRM/CMRD प्रमुख) का अभिमत :-</td>
+  </tr>
+  <tr>
+    <td class="post26-blank2" colspan="2"></td>
+  </tr>
+  <tr>
+    <td class="post26-date">दिनांक</td>
+    <td class="post26-sign">क्षेत्रीय प्रबंधक</td>
+  </tr>
+</table>
 
     <div class="no-print" style="margin-top:15px">
       <button id="btnPrint">Print / Save PDF</button>
