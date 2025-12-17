@@ -1,0 +1,43 @@
+@page { size: A4; margin: 6mm; }
+
+@media print{
+  html, body{ margin:0 !important; padding:0 !important; background:#fff !important; }
+  body{ -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  /* Hide buttons/UI */
+  .no-print, .op-actions, .footer{ display:none !important; }
+
+  /* Header must show */
+  .print-header, .print-header img, #hdrImg{
+    display:block !important;
+    visibility:visible !important;
+  }
+  .print-header img, #hdrImg{
+    width:100% !important;
+    height:auto !important;
+    max-height: 82px !important;
+    object-fit: contain !important;
+  }
+
+  /* Remove card look in print */
+  .page{ max-width: unset !important; margin:0 !important; padding:0 !important; box-shadow:none !important; border-radius:0 !important; }
+
+  /* Compact table for 1 page */
+  table{ width:100% !important; border-collapse:collapse !important; table-layout: fixed !important; }
+  td, th{
+    border:2px solid #000 !important;
+    padding: 4px 6px !important;
+    font-size: 13.5px !important;
+    line-height: 1.12 !important;
+    vertical-align: top !important;
+    word-break: break-word !important;
+  }
+
+  /* Shrink empty rows (THIS fixes page-2 problem) */
+  td:empty{ padding: 2px 6px !important; height: 18px !important; }
+
+  table, tr, td{ break-inside: avoid !important; page-break-inside: avoid !important; }
+
+  /* last resort micro-scale */
+  .page{ transform: scale(0.98); transform-origin: top left; }
+}
