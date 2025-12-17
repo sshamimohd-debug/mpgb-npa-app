@@ -6,18 +6,28 @@
   <title>MPGB NPA Quick Search</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
+
 <body>
-  <header class="app-header">
-    <div class="brand">
+
+  <!-- APP HEADER -->
+  <div class="app-header">
+    MPGB NPA Quick Search
+  </div>
+
+  <!-- APP CONTAINER START -->
+  <div class="app-container">
+
+    <header class="brand">
       <div class="logo">MPGB</div>
       <div>
         <div class="title">NPA Quick Search</div>
-        <div class="subtitle">GitHub Pages • Mobile friendly • Offline-friendly data chunks</div>
+        <div class="subtitle">
+          GitHub Pages • Mobile friendly • Offline-friendly data chunks
+        </div>
       </div>
-    </div>
-  </header>
+    </header>
 
-  <main class="container">
+    <!-- SEARCH CARD -->
     <section class="card">
       <h2>Search account</h2>
 
@@ -44,38 +54,44 @@
       </div>
 
       <div class="actions">
-        <button id="btnSearch" class="btn primary">Search</button>
-        <button id="btnClear" class="btn">Clear</button>
+        <button id="btnSearch" class="app-btn">Search</button>
+        <button id="btnClear" class="app-btn">Clear</button>
       </div>
 
       <p class="hint">
-        Tip: Data is stored in <code>data/chunks/{prefix}.json</code>. This demo repo contains a sample of rows.
-        For full data, run <code>tools/xlsb_to_chunks.py</code> on your PC to generate all chunks, then upload to GitHub.
+        Tip: Data is stored in <code>data/chunks/{prefix}.json</code>.
+        For full data, generate chunks on PC and upload to GitHub.
       </p>
     </section>
 
+    <!-- RESULT CARD -->
     <section class="card" id="resultCard" hidden>
       <div class="result-head">
         <h2>Result</h2>
         <div class="result-actions">
-          <button id="btnOnePager" class="btn primary">Open One-Pager</button>
-          <button id="btnSave" class="btn">Save Follow-up</button>
+          <button id="btnOnePager" class="app-btn">Open One-Pager</button>
+          <button id="btnSave" class="app-btn">Save Follow-up</button>
         </div>
       </div>
 
-      <div id="result" class="result"></div>
+      <div id="result" class="app-card"></div>
 
       <details class="details">
         <summary>Saved follow-up for this account</summary>
         <pre id="savedBox" class="saved"></pre>
       </details>
     </section>
-  </main>
 
-  <footer class="footer">
-    <div>Made for branch-level use • Works on mobile browser • No server required</div>
-  </footer>
+    <!-- FOOTER -->
+    <footer class="footer">
+      Made for branch-level use • Works on mobile browser • No server required
+    </footer>
 
+  </div>
+  <!-- APP CONTAINER END -->
+
+  <!-- JS -->
   <script src="js/app.js"></script>
+
 </body>
 </html>
