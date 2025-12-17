@@ -1,33 +1,141 @@
-@page { size:A4; margin: 5mm; }
+/* ===========================
+   MPGB NPA ONE-PAGER (PRINT)
+   Goal: 1 page, shrink, bank format
+   =========================== */
+
+@page { size: A4; margin: 5mm; }
 
 @media print{
-  td, th{
-    padding: 2px 6px !important;
+  /* Base */
+  html, body{
+    margin:0 !important;
+    padding:0 !important;
+    background:#fff !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* Hide top controls/extra section completely */
+  .no-print,
+  .onepager-top,
+  .op-actions,
+  .op-title,
+  .op-sub,
+  #opSub,
+  button,
+  a.btn{
+    display:none !important;
+    height:0 !important;
+    margin:0 !important;
+    padding:0 !important;
+  }
+
+  /* Container/card remove */
+  .container, .onepager-wrap, .card, .onepager, main{
+    margin:0 !important;
+    padding:0 !important;
+    box-shadow:none !important;
+    border-radius:0 !important;
+    background:#fff !important;
+  }
+
+  /* Header: smaller */
+  .print-header{
+    margin:0 0 4px 0 !important;
+    padding:0 !important;
+  }
+  .print-header img, #hdrImg{
+    display:block !important;
+    width:100% !important;
+    height:auto !important;
+    max-height: 50px !important;     /* HEADER SMALL */
+    object-fit: contain !important;
+  }
+
+  /* RO line: one line compact */
+  .roline{
     font-size: 12px !important;
-    line-height: 1.08 !important;
-  }
-
-  /* SL NO */
-  td:nth-child(1), th:nth-child(1){
-    width: 36px !important;
+    font-weight: 700 !important;
+    margin: 2px 0 4px 0 !important;
+    line-height: 1.05 !important;
     white-space: nowrap !important;
+  }
+  .roline .sep{ margin:0 6px !important; font-weight:400 !important; }
+
+  /* Title band compact */
+  .title-band{
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    padding: 4px 6px !important;
+    margin: 2px 0 5px 0 !important;
+    border: 2px solid #000 !important;
+  }
+
+  /* Tables */
+  table{
+    width:100% !important;
+    border-collapse: collapse !important;
+    table-layout: fixed !important;
+  }
+
+  /* MAIN TABLE cells */
+  .main-table td{
+    border: 2px solid #000 !important;
+    padding: 2px 5px !important;
+    font-size: 12px !important;
+    line-height: 1.06 !important;
+    vertical-align: top !important;
+    word-break: break-word !important;
+  }
+
+  /* Column widths using your classes (better than nth-child) */
+  .main-table td.sn{
+    width: 36px !important;
     text-align:center !important;
-    font-weight:700 !important;
+    font-weight: 700 !important;
+    white-space: nowrap !important;     /* 10/11/12 never wrap */
+  }
+  .main-table td.k{
+    width: 68% !important;              /* LABEL BIG */
+  }
+  .main-table td.v{
+    width: 32% !important;              /* VALUE SMALL */
+    font-weight: 700 !important;
   }
 
-  /* LABEL column BIG */
-  td:nth-child(2), th:nth-child(2){
-    width: 68% !important;
+  /* Empty value rows short */
+  .main-table td.v:empty,
+  .main-table td.v:blank{
+    height: 14px !important;
+    padding: 1px 5px !important;
+  }
+  /* Also handle your blank values as single space " " */
+  .main-table td.v{
+    min-height: 0 !important;
   }
 
-  /* VALUE column SMALL */
-  td:nth-child(3), th:nth-child(3){
-    width: 32% !important;
-    font-weight:700 !important;
+  /* Post-26 table compact */
+  .post26 td{
+    border: 2px solid #000 !important;
+    padding: 3px 6px !important;
+    font-size: 12px !important;
+    line-height: 1.06 !important;
+  }
+  .post26-head{ font-weight: 700 !important; }
+  .post26-blank, .post26-blank2{
+    height: 45px !important;            /* shrink big blank boxes */
   }
 
-  /* Empty rows short (17-26 wala part 1-page me aayega) */
-  td:empty{ height: 14px !important; padding: 1px 6px !important; }
+  /* Avoid page breaks inside anything */
+  table, tr, td, .post26{
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
 
-  table, tr, td{ break-inside: avoid !important; page-break-inside: avoid !important; }
+  /* Last resort: micro scale to guarantee 1 page */
+  body{
+    transform: scale(0.97);
+    transform-origin: top left;
+  }
 }
