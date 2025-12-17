@@ -8,96 +8,87 @@
 </head>
 <body>
 
-  <!-- Screen header (normal view) -->
-  <header class="app-header">
-    <div class="brand">
-      <img
-        src="assets/mpgb_logo.png"
-        alt="MPGB Logo"
-        class="brand-logo"
-        onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';"
-      />
-      <div class="logo" id="logoFallback" style="display:none;">MPGB</div>
-
-      <div>
-        <div class="title">NPA One-Pager</div>
-        <div class="subtitle">Print/Save as PDF from browser • Unicode Hindi supported</div>
-      </div>
-    </div>
+  <!-- Header (screen + print) -->
+  <header class="app-header print-header">
+    <img class="brand-banner" src="assets/mpgb_logo.png" alt="MPGB Header" />
   </header>
 
-  <main class="container">
-    <section class="card onepager">
+  <main class="container onepager-page">
 
-      <!-- Screen top bar -->
-      <div class="onepager-top">
-        <div>
-          <div class="op-title">प्राथमिक विवरण (One-Pager)</div>
-          <div class="op-sub" id="opSub"></div>
+    <section class="sheet onepager-sheet">
+
+      <!-- RO / Branch -->
+      <div class="robr">
+        <div class="ro-line">
+          <span class="lbl">क्षेत्रीय कार्यालय</span> <span class="colon">:</span>
+          <span id="pRO2" class="val"></span>
         </div>
-        <div class="op-actions">
-          <button class="btn primary" id="btnPrint">Print / Save PDF</button>
-          <a class="btn" href="./index.html">Back</a>
+        <div class="br-line">
+          <span class="lbl">शाखा</span> <span class="colon">:</span>
+          <span id="pBranch2" class="val"></span>
         </div>
       </div>
 
-      <!-- Screen body (easy view) -->
-      <div id="opBody" class="op-body"></div>
+      <div class="sheet-title">एनपीए प्रबंधन के अंतर्गत समझौता स्वीकृति हेतु प्राथमिक जानकारी –</div>
 
-      <div class="op-note">
-        नोट: यह पेज केवल त्वरित संदर्भ हेतु है। अंतिम निर्णय/स्वीकृति बैंक के नियमों व सक्षम प्राधिकारी के अनुसार होगी।
-      </div>
+      <!-- Main table -->
+      <table class="op-table" aria-label="NPA One Pager Table">
+        <tbody>
+          <tr><td class="c1">1</td><td class="c2">हितग्राही का नाम</td><td class="c3" id="pName"></td></tr>
+          <tr><td class="c1">2</td><td class="c2">हितग्राही का मोबाइल नंबर</td><td class="c3" id="pMobile"></td></tr>
+          <tr><td class="c1">3</td><td class="c2">ऋण का उद्देश्य (Scheme)</td><td class="c3" id="pScheme"></td></tr>
+          <tr><td class="c1">4</td><td class="c2">खाता क्रमांक</td><td class="c3" id="pAccount"></td></tr>
+          <tr><td class="c1">5</td><td class="c2">स्वीकृति दिनाँक</td><td class="c3" id="pSanctionDate"></td></tr>
+          <tr><td class="c1">6</td><td class="c2">स्वीकृत राशि</td><td class="c3" id="pSanctionAmt"></td></tr>
+          <tr><td class="c1">7</td><td class="c2">बकाया राशि</td><td class="c3" id="pOutstanding"></td></tr>
+          <tr><td class="c1">8</td><td class="c2">एनपीए दिनांक</td><td class="c3" id="pNpaDate"></td></tr>
+          <tr><td class="c1">9</td><td class="c2">आस्ति कोड</td><td class="c3" id="pAsset"></td></tr>
+          <tr><td class="c1">10</td><td class="c2">प्रावधान</td><td class="c3" id="pProvision"></td></tr>
+          <tr><td class="c1">11</td><td class="c2">UCI</td><td class="c3" id="pUci"></td></tr>
+          <tr><td class="c1">12</td><td class="c2">URI</td><td class="c3" id="pUri"></td></tr>
+          <tr><td class="c1">13</td><td class="c2">प्रस्तावित समझौता राशि</td><td class="c3" id="pOts"></td></tr>
+          <tr><td class="c1">14</td><td class="c2">समझौता राशि का प्रतिशत</td><td class="c3" id="pOtsPct"></td></tr>
+          <tr><td class="c1">15</td><td class="c2">अधित्याग (W/O)</td><td class="c3" id="pWO"></td></tr>
+          <tr><td class="c1">16</td><td class="c2">लाभ-हानि का प्रभाव</td><td class="c3" id="pPLImpact"></td></tr>
+          <tr><td class="c1">17</td><td class="c2">कुल अधित्याग</td><td class="c3" id="pTotalSacrifice"></td></tr>
 
-      <!-- =========================
-           PRINT HEADER (PDF ONLY)
-           ========================= -->
-      <div class="print-only print-header">
-        <img src="assets/mpgb_header.png" alt="MPGB Header" class="print-banner">
-      </div>
+          <tr><td class="c1">18</td><td class="c2">सुरक्षा प्रतिभूति का विवरण (बंधक/ दृष्टि बंधक/चेक)</td><td class="c3"></td></tr>
+          <tr><td class="c1">19</td><td class="c2">कानूनी कार्यवाही (वाद दायर/138/डीआरटी/टिक्की स्थिति/आर.आर.सी)</td><td class="c3"></td></tr>
+          <tr><td class="c1">20</td><td class="c2">दस्तावेज़ की स्थिति (Update/Timebarred)</td><td class="c3"></td></tr>
+          <tr><td class="c1">21</td><td class="c2">ऋणी की स्थिति (Diseased/alive/Physically disabled/any Serious illness)</td><td class="c3"></td></tr>
+          <tr><td class="c1">22</td><td class="c2">धोखाधड़ी / एफ.आई.आर. की स्थिति</td><td class="c3"></td></tr>
+          <tr><td class="c1">23</td><td class="c2">ऋण वसूली के प्रयास</td><td class="c3"></td></tr>
+          <tr><td class="c1">24</td><td class="c2">भविष्य में वसूली की संभावनाएं</td><td class="c3"></td></tr>
 
-      <div class="print-only ph-meta">
-        <div><b>क्षेत्रीय कार्यालय</b> : <span id="pRO2"></span></div>
-        <div><b>शाखा</b> : <span id="pBranch2"></span></div>
-      </div>
-
-      <!-- =========================
-           PRINT TABLE (PDF ONLY)
-           ========================= -->
-      <table class="print-only print-table">
-        <tr>
-          <th class="pt-center" colspan="3">एनपीए प्रबंधन के अंतर्गत समझौता स्वीकृति हेतु प्राथमिक जानकारी</th>
-        </tr>
-
-        <tr><td class="c1">1</td><td class="c2">हितग्राही का नाम</td><td id="pName"></td></tr>
-        <tr><td class="c1">2</td><td class="c2">हितग्राही का मोबाइल नंबर</td><td id="pMobile"></td></tr>
-        <tr><td class="c1">3</td><td class="c2">ऋण का उद्देश्य (Scheme)</td><td id="pScheme"></td></tr>
-        <tr><td class="c1">4</td><td class="c2">खाता क्रमांक</td><td id="pAccount"></td></tr>
-        <tr><td class="c1">5</td><td class="c2">स्वीकृति दिनांक</td><td id="pSanctionDate"></td></tr>
-        <tr><td class="c1">6</td><td class="c2">स्वीकृत राशि</td><td id="pSanctionAmt"></td></tr>
-        <tr><td class="c1">7</td><td class="c2">बकाया राशि</td><td id="pOutstanding"></td></tr>
-        <tr><td class="c1">8</td><td class="c2">एनपीए दिनांक</td><td id="pNpaDate"></td></tr>
-        <tr><td class="c1">9</td><td class="c2">आस्ति कोड</td><td id="pAsset"></td></tr>
-        <tr><td class="c1">10</td><td class="c2">प्रावधान</td><td id="pProvision"></td></tr>
-        <tr><td class="c1">11</td><td class="c2">UCI</td><td id="pUci"></td></tr>
-        <tr><td class="c1">12</td><td class="c2">URI</td><td id="pUri"></td></tr>
-        <tr><td class="c1">13</td><td class="c2">प्रस्तावित समझौता राशि</td><td id="pOts"></td></tr>
-
-        <tr><td class="c1">14</td><td class="c2">समझौता राशि का प्रतिशत</td><td id="pOtsPct"></td></tr>
-        <tr><td class="c1">15</td><td class="c2">अधित्याग (W/O)</td><td id="pWO"></td></tr>
-        <tr><td class="c1">16</td><td class="c2">लाभ-हानि का प्रभाव</td><td id="pPLImpact"></td></tr>
-        <tr><td class="c1">17</td><td class="c2">कुल अधित्याग</td><td id="pTotalSacrifice"></td></tr>
-
-        <!-- 18-26 blank rows for manual writing after print -->
-        <tr><td class="c1">18</td><td class="c2">सुरक्षा प्रताभूति का विवरण (बंधक/दृष्टि बंधक/चेक)</td><td></td></tr>
-        <tr><td class="c1">19</td><td class="c2">कानूनी कार्यवाही (वाद दायर/138/डीआरटी/टिक्की/आर.आर.सी.)</td><td></td></tr>
-        <tr><td class="c1">20</td><td class="c2">दस्तावेज़ की स्थिति (Update/Timebarred)</td><td></td></tr>
-        <tr><td class="c1">21</td><td class="c2">ऋणी की स्थिति (Diseased/alive/Physically disabled/Serious illness)</td><td></td></tr>
-        <tr><td class="c1">22</td><td class="c2">धोखाधड़ी / एफ.आई.आर. की स्थिति</td><td></td></tr>
-        <tr><td class="c1">23</td><td class="c2">ऋण वसूली के प्रयास</td><td></td></tr>
-        <tr><td class="c1">24</td><td class="c2">भविष्य में वसूली की संभावनाएं</td><td></td></tr>
-        <tr><td class="c1">25</td><td class="c2">सिविल/क्रि. की स्थिति (रूको एवं ऋण खातों की स्थिति)</td><td></td></tr>
-        <tr><td class="c1">26</td><td class="c2">एसआर की स्थिति</td><td></td></tr>
+          <!-- ✅ These were going to page-2 earlier (25-26) -->
+          <tr><td class="c1">25</td><td class="c2">सिविल/क्रि. की स्थिति (स्टॉक एवं ऋण खाते की स्थिति)</td><td class="c3"></td></tr>
+          <tr><td class="c1">26</td><td class="c2">एसआर की स्थिति</td><td class="c3"></td></tr>
+        </tbody>
       </table>
+
+      <!-- Sign / Date section (added) -->
+      <div class="sign-wrap">
+        <div class="sign-row">
+          <div class="sign-cell"><span class="sign-lbl">दिनांक</span></div>
+          <div class="sign-cell right"><span class="sign-lbl">शाखा प्रबंधक</span></div>
+        </div>
+
+        <div class="sign-row big">
+          <div class="sign-cell"><span class="sign-lbl">क्षेत्रीय कार्यालय (RM/DRM/CMRD प्रमुख) का अनुमोदन :</span></div>
+          <div class="sign-cell right"></div>
+        </div>
+
+        <div class="sign-row">
+          <div class="sign-cell"><span class="sign-lbl">दिनांक</span></div>
+          <div class="sign-cell right"><span class="sign-lbl">क्षेत्रीय प्रबंधक</span></div>
+        </div>
+      </div>
+
+      <!-- Buttons (screen only) -->
+      <div class="op-actions no-print">
+        <button class="btn primary" id="btnPrint">Print / Save PDF</button>
+        <a class="btn" href="./index.html">Back</a>
+      </div>
 
     </section>
   </main>
