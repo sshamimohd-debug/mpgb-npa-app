@@ -1,6 +1,6 @@
 const qs = new URLSearchParams(window.location.search);
 const acct = (qs.get('acct') || '').replace(/\D/g,'');
-const propAmt = qs.get('amt') || '';
+const propAmtRaw = qs.get('amt') || '';
 
 async function loadChunk(prefix){
   const r = await fetch(`data/chunks/${prefix}.json`, {cache:'no-store'});
@@ -8,20 +8,17 @@ async function loadChunk(prefix){
   return r.json();
 }
 
-function pos(x){
+function toNum(x){
   const n = Number(String(x ?? '').replace(/,/g,'').trim());
+  return Number.isFinite(n) ? n : NaN;
+}
+function posNum(x){
+  const n = toNum(x);
   return Number.isFinite(n) ? Math.abs(n) : 0;
 }
-
 function fmtIN(x){
-  return pos(x).toLocaleString('en-IN', {maximumFractionDigits: 2});
+  return posNum(x).toLocaleString('en-IN', {maximumFractionDigits: 2});
 }
-
-function set(id, v){
-  const el = document.getElementById(id);
-  if (el) el.textContent = v ?? '';
-}
-
 function pick(rec, keys){
   for (const k of keys){
     const v = rec?.[k];
@@ -29,10 +26,40 @@ function pick(rec, keys){
   }
   return '';
 }
+function excelSerialToDMY(v){
+  // Excel serial (e.g., 43190) -> DD-MM-YYYY
+  const n = toNum(v);
+  if (!Number.isFinite(n)) return '';
+  if (n > 20000 && n < 60000){
+    const ms = Math.round((n - 25569) * 86400 * 1000); // Excel->Unix
+    const d = new Date(ms);
+    const dd = String(d.getUTCDate()).padStart(2,'0');
+    const mm = String(d.getUTCMonth()+1).padStart(2,'0');
+    const yy = d.getUTCFullYear();
+    return `${dd}-${mm}-${yy}`;
+  }
+  return String(v);
+}
+
+function setText(id, v, fallback='-'){
+  const el = document.getElementById(id);
+  if (!el) return;
+  const s = (v === undefined || v === null) ? '' : String(v).trim();
+  el.textContent = s ? s : fallback;
+}
 
 window.addEventListener('DOMContentLoaded', async ()=>{
+  // Print button
   const btn = document.getElementById('btnPrint');
   if (btn) btn.addEventListener('click', ()=> window.print());
+
+  // Header image fallback: if image fails, hide alt-text box and show nothing
+  const hdr = document.getElementById('hdrImg');
+  if (hdr){
+    hdr.addEventListener('error', ()=> {
+      hdr.style.display = 'none'; // prevents "MPGB Header" alt text printing
+    });
+  }
 
   if (!acct){ alert('No account provided'); return; }
 
@@ -41,45 +68,51 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   const r = chunk[acct];
   if (!r){ alert('Account not found'); return; }
 
-  // RO / Branch
-  set('pRO', pick(r, ['Region','RO','Region Name']));
-  set('pBranch', pick(r, ['Branch','Branch Name']));
+  // RO / Branch (never blank)
+  setText('pRO', pick(r, ['Region','RO','Region Name']), '-');
+  setText('pBranch', pick(r, ['Branch','Branch Name']), '-');
 
-  // Core
-  set('pName', pick(r, ['Acct Name','Account Name','NAME']));
-  set('pMobile', pick(r, ['Mobile Num','Mobile','Mob No']));
-  set('pScheme', pick(r, ['Scheme Code','Scheme']));
-  set('pAccount', acct);
+  // 1-17 (never blank)
+  setText('pName', pick(r, ['Acct Name','Account Name','NAME']), '-');
+  setText('pMobile', pick(r, ['Mobile Num','Mobile','Mob No']), '-');
+  setText('pScheme', pick(r, ['Scheme Code','Scheme']), '-');
+  setText('pAccount', acct, acct);
 
-  // ✅ Your confirmed headers
-  set('pSanctionDate', pick(r, ['Acct Opn Date']));
-  set('pSanctionAmt', fmtIN(pick(r, ['Sanct Lim Amount'])));
+  // 5,6 (your confirmed headers) + Excel serial date to DMY
+  const sancDate = pick(r, ['Acct Opn Date']);
+  setText('pSanctionDate', excelSerialToDMY(sancDate), '-');
 
-  // Outstanding / NPA date / Asset
-  set('pOutstanding', fmtIN(pick(r, ['O/S Bal','OS Bal','Outstanding'])));
-  set('pNpaDate', pick(r, ['NPA Date','NPA Dt','Npa Date','CIF NPA date']));
-  set('pAsset', String(pick(r, ['Asset Code 30.09.25','Asset Code'])));
+  const sancAmt = pick(r, ['Sanct Lim Amount']);
+  setText('pSanctionAmt', fmtIN(sancAmt), '0');
 
-  set('pProvision', fmtIN(pick(r, ['Provision'])));
-  set('pUci', fmtIN(pick(r, ['UCI'])));
-  set('pUri', fmtIN(pick(r, ['URI'])));
+  // 7 O/S
+  const osBal = pick(r, ['O/S Bal','OS Bal','Outstanding']);
+  setText('pOutstanding', fmtIN(osBal), '0');
 
-  // Proposed OTS from querystring
-  set('pOts', fmtIN(propAmt));
+  // 8 NPA date (try multiple keys + Excel serial)
+  const npaDate = pick(r, ['NPA Date','NPA Dt','Npa Date','CIF NPA date']);
+  setText('pNpaDate', excelSerialToDMY(npaDate), '-');
 
-  // ===== Derived (NO NEGATIVE DISPLAY) =====
-  const D11 = pos(pick(r, ['O/S Bal','OS Bal','Outstanding']));
-  const D17 = pos(propAmt);
-  const D14 = pos(pick(r, ['Provision']));
-  const D16 = pos(pick(r, ['PL Impact','P/L Impact'])) || 0;
+  // 9-12
+  setText('pAsset', pick(r, ['Asset Code 30.09.25','Asset Code']), '-');
+  setText('pProvision', fmtIN(pick(r, ['Provision'])), '0');
+  setText('pUci', fmtIN(pick(r, ['UCI'])), '0');
+  setText('pUri', fmtIN(pick(r, ['URI'])), '0');
 
+  // 13 Proposed OTS from query
+  setText('pOts', fmtIN(propAmtRaw), '0');
+
+  // Derived (NO negative display)
+  const D11 = posNum(osBal);
+  const D17 = posNum(propAmtRaw);
+  const D14 = posNum(pick(r, ['Provision']));
   const otsPct = D11 > 0 ? Math.abs(D17 * 100 / D11) : 0;
   const woAmt = Math.abs(D11 - D17);
-  const plImpact = Math.abs(D17 - (D11 - D16 - D14));
+  const plImpact = Math.abs(D17 - (D11 - D14));
   const totalSacrifice = Math.abs(D11 + woAmt - D17);
 
-  set('pOtsPct', otsPct.toFixed(2));
-  set('pWO', fmtIN(woAmt));
-  set('pPLImpact', fmtIN(plImpact));
-  set('pTotalSacrifice', fmtIN(totalSacrifice));
+  setText('pOtsPct', otsPct.toFixed(2), '0.00');
+  setText('pWO', fmtIN(woAmt), '0');
+  setText('pPLImpact', fmtIN(plImpact), '0');
+  setText('pTotalSacrifice', fmtIN(totalSacrifice), '0');
 });
