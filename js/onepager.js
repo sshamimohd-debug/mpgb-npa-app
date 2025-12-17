@@ -112,7 +112,7 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   const P14 = (P11 > 0) ? (P13 * 100 / P11) : 0;
 
   // Point 15 = Point 7 - Point 11  (negative allowed)
-  const P15 = (P7 - P11);
+  const P15 = (P7 - P13);
 
   // Point 16 = Point 13 - (Point 7 - Point 12 - Point 10) (negative allowed)
   const P16 = (P13 - (P7 - P12 - P10));
