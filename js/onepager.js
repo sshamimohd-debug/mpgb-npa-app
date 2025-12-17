@@ -13,7 +13,7 @@ function normStr(x){
 }
 
 function toNum(x){
-  const s = normStr(x).replace(/,/g,'');
+  const s = normStr(x).replace(/[₹,\s]/g,'');
   const n = Number(s);
   return Number.isFinite(n) ? n : NaN;
 }
@@ -50,6 +50,7 @@ function excelSerialToDMY(v){
     const s = normStr(v);
     return s ? s : '-';
   }
+  // Excel serial date range safeguard
   if (n > 20000 && n < 60000){
     const ms = Math.round((n - 25569) * 86400 * 1000);
     const d = new Date(ms);
@@ -83,6 +84,8 @@ window.addEventListener('DOMContentLoaded', async ()=>{
 
   const prefix = acct.slice(0,3);
   const chunk = await loadChunk(prefix);
+
+  // Your chunk structure uses acct as key
   const rec = chunk[acct];
   if (!rec){ alert('Account not found'); return; }
 
@@ -90,7 +93,7 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   setText('pRO', pick(rec, ['Region','RO','Region Name']), '-');
   setText('pBranch', pick(rec, ['Branch','Branch Name']), '-');
 
-  // ===== POINT SOURCES =====
+  // ===== POINT SOURCES (LOCKED) =====
   const P1  = pick(rec, ['Acct Name','Account Name','NAME']);
   const P2  = pick(rec, ['Mobile Num','Mobile','Mob No']);
   const P3  = pick(rec, ['Scheme Code','Scheme']);
@@ -98,27 +101,27 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   const P5  = excelSerialToDMY(pick(rec, ['Acct Opn Date']));
   const P6  = absNum(pick(rec, ['Sanct Lim Amount']));
 
-  // Point 7/10/11/12/13 must display POSITIVE
+  // Always-positive display points:
   const P7  = absNum(pick(rec, ['O/S Bal','OS Bal','Outstanding','O/S Bal ']));
   const P8  = excelSerialToDMY(pick(rec, ['CIF NPA date','NPA Date','NPA Dt','Npa Date']));
   const P9  = pick(rec, ['Asset Code 30.09.25','Asset Code']);
   const P10 = absNum(pick(rec, ['Provision','Provision ']));  // positive display
   const P11 = absNum(pick(rec, ['UCI','UCI ']));              // positive display
   const P12 = absNum(pick(rec, ['URI','URI ']));              // positive display
-  const P13 = absNum(propAmtRaw);                             // positive display
+  const P13 = absNum(propAmtRaw);                             // positive display (query)
 
-  // ===== POINT FORMULAS (as you defined) =====
-  // Point 14 = Point 13*100/Point 11  (always positive)
-  const P14 = (P11 > 0) ? (P13 * 100 / P11) : 0;
+  // ===== POINT FORMULAS (NEW: Excel matched) =====
+  // P14 = (P13*100)/P7  (always positive)  ✅
+  const P14 = (P7 > 0) ? Math.abs((P13 * 100) / P7) : 0;
 
-  // Point 15 = Point 7 - Point 11  (negative allowed)
+  // P15 = P7 - P13  (negative allowed) ✅
   const P15 = (P7 - P13);
 
-  // Point 16 = Point 13 - (Point 7 - Point 12 - Point 10) (negative allowed)
+  // P16 = P13 - (P7 - P12 - P10)  (negative allowed) ✅
   const P16 = (P13 - (P7 - P12 - P10));
 
-  // Point 17 = Point 7 + Point 11 - Point 13 (display always positive)
-  const P17 = Math.abs(P7 + P11 - P13);
+  // P17 = |P11 + P10 - P13|  (always positive) ✅
+  const P17 = Math.abs(P11 + P10 - P13);
 
   // ===== FILL TABLE (1–17 never blank) =====
   setText('p1', P1, '-');
@@ -136,10 +139,10 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   setText('p12', fmtAbs(P12), '0');
   setText('p13', fmtAbs(P13), '0');
 
-  // % always positive and correct
-  setText('p14', Math.abs(P14).toFixed(2), '0.00');
+  // % always positive
+  setText('p14', P14.toFixed(2), '0.00');
 
-  // Negative allowed where required
+  // Signed where required
   setText('p15', fmtSigned(P15), '0');
   setText('p16', fmtSigned(P16), '0');
 
