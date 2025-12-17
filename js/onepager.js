@@ -98,21 +98,32 @@ window.addEventListener('DOMContentLoaded', async ()=>{
   setText('pProvision', fmtIN(pick(r, ['Provision'])), '0');
   setText('pUci', fmtIN(pick(r, ['UCI'])), '0');
   setText('pUri', fmtIN(pick(r, ['URI'])), '0');
-
   // 13 Proposed OTS from query
   setText('pOts', fmtIN(propAmtRaw), '0');
 
-  // Derived (NO negative display)
-  const D11 = posNum(osBal);
-  const D17 = posNum(propAmtRaw);
-  const D14 = posNum(pick(r, ['Provision']));
-  const otsPct = D11 > 0 ? Math.abs(D17 * 100 / D11) : 0;
-  const woAmt = Math.abs(D11 - D17);
-  const plImpact = Math.abs(D17 - (D11 - D14));
-  const totalSacrifice = Math.abs(D11 + woAmt - D17);
+  // ===== Derived (Excel formulas; NO negative display) =====
+  const D11 = posNum(osBal);                         // Outstanding (O/S)
+  const D17 = posNum(propAmtRaw);                    // Proposed OTS
+  const D14 = posNum(pick(r, ['Provision']));        // Provision
+
+  // (Optional) D16 mapping: agar aapke data me "D16" wala field nahi hai to 0 rahega
+  // Aap chahe to yahan key add kar dena (e.g. 'Something Column Name')
+  const D16 = posNum(pick(r, ['D16', 'PL Base', 'Recovery Base'])) || 0;
+
+  // 14 = D17*100/D11
+  const otsPct = D11 > 0 ? Math.abs((D17 * 100) / D11) : 0;
+
+  // 15 = D11 - D17   (display positive)
+  const D15 = Math.abs(D11 - D17);
+
+  // 16 = D17-(D11-D16-D14)
+  const plImpact = Math.abs(D17 - (D11 - D16 - D14));
+
+  // 17 = D11 + D15 - D17
+  const totalSacrifice = Math.abs(D11 + D15 - D17);
 
   setText('pOtsPct', otsPct.toFixed(2), '0.00');
-  setText('pWO', fmtIN(woAmt), '0');
+  setText('pWO', fmtIN(D15), '0');
   setText('pPLImpact', fmtIN(plImpact), '0');
   setText('pTotalSacrifice', fmtIN(totalSacrifice), '0');
 });
