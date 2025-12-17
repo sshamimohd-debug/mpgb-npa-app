@@ -104,14 +104,24 @@ function renderResult(acct, rec){
     $('savedBox').textContent = JSON.stringify(saved, null, 2);
   }
 }
+// ================== DOM READY ==================
+window.addEventListener('DOMContentLoaded', () => {
 
-// ================== BUTTONS ==================
-$('btnSearch').addEventListener('click', doSearch);
+  const btnSearch = document.getElementById('btnSearch');
+  const btnClear  = document.getElementById('btnClear');
 
-$('btnClear').addEventListener('click', () => {
-  $('acct').value = '';
-  $('amt').value = '';
-  $('remarks').value = '';
-  $('result').innerHTML = '';
-  $('resultCard').hidden = true;
+  if (btnSearch) {
+    btnSearch.addEventListener('click', doSearch);
+  }
+
+  if (btnClear) {
+    btnClear.addEventListener('click', () => {
+      document.getElementById('acct').value = '';
+      document.getElementById('amt').value = '';
+      document.getElementById('remarks').value = '';
+      document.getElementById('result').innerHTML = '';
+      document.getElementById('resultCard').hidden = true;
+    });
+  }
+
 });
