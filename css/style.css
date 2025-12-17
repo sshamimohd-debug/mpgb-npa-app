@@ -1,473 +1,119 @@
-/* Mobile-first clean UI */
-:root{
-  --bg:#0b1220;
-  --card:#0f1a2e;
-  --muted:#9fb3c8;
-  --text:#e8f0ff;
-  --border: rgba(255,255,255,.10);
-  --primary:#2b7cff;
-  --primary2:#1f5fd0;
-}
+/* =========================
+   FINAL PRINT (ONE-PAGER)
+   ========================= */
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,"Noto Sans Devanagari","Mangal",sans-serif;background:linear-gradient(180deg,#08101f 0%, #0b1220 100%);color:var(--text)}
-code{background:rgba(255,255,255,.06);padding:2px 6px;border-radius:8px;border:1px solid var(--border)}
-a{color:inherit;text-decoration:none}
-
-.app-header{
-  position:sticky; top:0; z-index:10;
-  background:rgba(11,18,32,.88);
-  backdrop-filter: blur(10px);
-  border-bottom:1px solid var(--border);
-  padding:14px 16px;
-}
-.brand{display:flex;gap:12px;align-items:center}
-.logo{
-  width:42px;height:42px;border-radius:14px;
-  background:linear-gradient(135deg,var(--primary),#6aa7ff);
-  display:grid;place-items:center;
-  font-weight:800; letter-spacing:.5px;
-  color:#08101f;
-}
-.title{font-weight:800;font-size:16px}
-.subtitle{color:var(--muted);font-size:12px;margin-top:2px}
-
-.container{max-width:900px;margin:0 auto;padding:16px}
-.card{
-  background:rgba(15,26,46,.82);
-  border:1px solid var(--border);
-  border-radius:18px;
-  padding:16px;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
-  margin-bottom:14px;
-}
-h2{margin:0 0 12px 0;font-size:16px}
-.grid{display:grid;grid-template-columns:1fr;gap:10px}
-.field span{display:block;color:var(--muted);font-size:12px;margin-bottom:6px}
-.field input,.field textarea{
-  width:100%;
-  background:rgba(255,255,255,.06);
-  color:var(--text);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:12px 12px;
-  outline:none;
-  font-size:14px;
-}
-.field textarea{resize:vertical;min-height:46px}
-.field-wide{grid-column:1/-1}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.btn{
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.06);
-  color:var(--text);
-  padding:10px 14px;
-  border-radius:14px;
-  font-weight:700;
-  cursor:pointer;
-}
-.btn.primary{background:linear-gradient(135deg,var(--primary),var(--primary2));border-color:rgba(255,255,255,.15)}
-.btn:active{transform:translateY(1px)}
-.hint{color:var(--muted);font-size:12px;line-height:1.5;margin:12px 0 0}
-
-.result-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-.result-actions{display:flex;gap:10px;flex-wrap:wrap}
-.result{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
-.kv{border:1px solid var(--border);border-radius:14px;padding:12px;background:rgba(255,255,255,.04)}
-.k{color:var(--muted);font-size:12px;margin-bottom:4px}
-.v{font-size:14px;font-weight:700;word-break:break-word}
-
-.details{margin-top:10px}
-.saved{white-space:pre-wrap;background:rgba(255,255,255,.04);border:1px solid var(--border);padding:12px;border-radius:14px;color:var(--muted)}
-
-.footer{color:var(--muted);font-size:12px;text-align:center;padding:18px}
-
-/* larger screens */
-@media (min-width:720px){
-  .grid{grid-template-columns:repeat(3,1fr)}
-  .field-wide{grid-column:1/-1}
-  .result{grid-template-columns:repeat(3,1fr)}
-}
-
-/* onepager */
-.onepager .op-title{font-size:18px;font-weight:900}
-.onepager .op-sub{color:var(--muted);font-size:12px;margin-top:4px}
-.onepager-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap;margin-bottom:10px}
-.op-actions{display:flex;gap:10px;flex-wrap:wrap}
-.op-body{display:grid;grid-template-columns:1fr;gap:10px;margin-top:10px}
-.op-note{margin-top:12px;color:var(--muted);font-size:12px;line-height:1.5}
-@media (min-width:720px){ .op-body{grid-template-columns:repeat(2,1fr)} }
-@media print{
-  body{background:white;color:black}
-  .app-header,.op-actions,.footer{display:none !important}
-  .card{box-shadow:none;border:1px solid #ddd}
-  .k{color:#444}
-  .subtitle,.op-sub,.op-note{color:#444}
-  .kv{background:white}
-}
-/* header logo image */
-.brand-logo{
-  height: 44px;
-  width: auto;
-  object-fit: contain;
-}
-/* ===== Brand logo on screen header ===== */
-.brand-logo{
-  height: 44px;
-  width: auto;
-  object-fit: contain;
-  display: block;
-}
-
-/* ===== Print banner/table support ===== */
-.print-only{ display:none; }
-
-/* Banner image (PDF header) */
-.print-header{ margin-bottom:6px; }
-.print-banner{
-  width:100%;
-  height:auto;
-  max-height:160px;
-  object-fit:contain;
-  display:block;
-}
-
-/* RO/Branch lines below banner */
-.ph-meta{
-  width:100%;
-  border:1px solid #000;
-  border-top:none;
-  font-size:14px;
-}
-.ph-meta > div{
-  padding:6px 8px;
-  border-top:1px solid #000;
-}
-
-/* Print table */
-.print-table{
-  width:100%;
-  border-collapse:collapse;
-  font-size:12px;
-}
-.print-table th,
-.print-table td{
-  border:1px solid #000;
-  padding:6px;
-  vertical-align:top;
-}
-.print-table .c1{ width:32px; text-align:center; }
-.print-table .c2{ width:45%; }
-.pt-center{ text-align:center; font-weight:700; }
-
-/* Print rules */
-@media print{
-  /* hide screen-only UI */
-  .app-header, .op-actions, .footer{ display:none !important; }
-  .onepager-top, #opBody, .op-note{ display:none !important; }
-
-  /* show print-only elements */
-  .print-only{ display:block !important; }
-  table.print-only{ display:table !important; }
-}
-/* ===== Onepager sheet look (no rounded "box") ===== */
-.onepager-page{max-width: 980px; margin: 0 auto;}
-.onepager-sheet.sheet{
-  background:#fff;
-  border:none;
-  border-radius:0;
-  box-shadow:none;
-  padding: 10px 10px 14px;
-}
-
-/* Header banner full width, height reduced */
-.print-header{
-  background: transparent;
-  border: none;
-  box-shadow:none;
-  padding: 8px 10px 0;
-}
-.brand-banner{
-  display:block;
-  width:100%;
-  height:auto;
-  max-height:110px;          /* height kam */
-  object-fit:contain;        /* full fit */
-}
-
-/* RO/Branch lines */
-.robr{
-  border:2px solid #000;
-  border-bottom: none;
-  margin-top: 6px;
-}
-.robr .ro-line, .robr .br-line{
-  display:flex;
-  gap:8px;
-  padding:8px 10px;
-  border-bottom:2px solid #000;
-  font-size:18px;
-  font-weight:700;
-}
-.robr .lbl{min-width:140px;}
-.robr .val{font-weight:400;}
-
-/* Title line */
-.sheet-title{
-  border:2px solid #000;
-  border-top:none;
-  padding:10px 10px;
-  text-align:center;
-  font-size:16px;
-  font-weight:700;
-}
-
-/* Main table */
-.op-table{
-  width:100%;
-  border-collapse:collapse;
-  border:2px solid #000;
-  border-top:none;
-}
-.op-table td{
-  border:2px solid #000;
-  padding:10px 10px;
-  vertical-align:top;
-  font-size:16px;
-}
-.op-table .c1{width:46px; text-align:center;}
-.op-table .c2{width:55%;}
-.op-table .c3{width:45%; font-weight:700; font-size:22px;}
-
-/* Signature area */
-.sign-wrap{
-  border:2px solid #000;
-  border-top:none;
-}
-.sign-row{
-  display:flex;
-  border-top:2px solid #000;
-}
-.sign-row:first-child{border-top:none;}
-.sign-row.big{min-height:90px;}
-.sign-cell{
-  flex:1;
-  padding:14px 10px;
-}
-.sign-cell.right{
-  border-left:2px solid #000;
-  text-align:right;
-}
-.sign-lbl{font-size:18px; font-weight:700;}
-
-/* Print controls */
-.no-print{display:block;}
-@media print{
-  body{background:#fff !important; color:#000 !important;}
-  .container{padding:0 !important;}
-  .no-print{display:none !important;}
-
-  /* keep header in print */
-  .app-header{display:block !important;}
-
-  /* avoid breaking table */
-  .onepager-sheet{page-break-inside:avoid;}
-  .op-table, .sign-wrap{page-break-inside:avoid;}
-}
-body{
-  background:#fff;
-  color:#000;
-  font-family: Mangal, Arial, sans-serif;
-}
-
-.print-header img{
-  width:100%;
-  max-height:110px;
-  object-fit:contain;
-}
-
-.page{max-width:900px;margin:auto}
-
-.top-lines{
-  font-size:18px;
-  font-weight:bold;
-  margin:8px 0;
-}
-
-.title{
-  text-align:center;
-  font-weight:bold;
-  margin:10px 0;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-.main-table td{
-  border:2px solid #000;
-  padding:8px;
-  font-size:16px;
-}
-
-.main-table td:first-child{width:40px;text-align:center}
-.main-table td:nth-child(2){width:55%}
-.main-table td:nth-child(3){font-weight:bold}
-
-.sign-table td{
-  border:2px solid #000;
-  padding:12px;
-  font-weight:bold;
-}
-
-@media print{
-  .no-print{display:none}
-}
-/* ====== Hindi font embed (prevents ￾ broken glyphs) ====== */
-@font-face{
-  font-family: "NotoDeva";
-  src: url("../assets/fonts/NotoSansDevanagari-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-html, body{
-  background:#fff;
-  color:#000;
-  font-family: "NotoDeva", Mangal, "Nirmala UI", Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: geometricPrecision;
-}
-
-.print-header img{
-  width:100%;
-  height:auto;
-  max-height:110px;     /* height kam */
-  object-fit:contain;   /* full fit */
-  display:block;
-}
-
-.page{max-width:900px;margin:0 auto;padding:0 6px;}
-
-.top-lines{
-  font-size:18px;
-  font-weight:700;
-  margin:8px 0;
-  line-height:1.2;
-}
-
-.title{
-  text-align:center;
-  font-weight:700;
-  margin:10px 0;
-}
-
-table{width:100%; border-collapse:collapse;}
-
-.main-table td{
-  border:2px solid #000;
-  padding:8px;
-  font-size:16px;
-  vertical-align:top;
-  word-break:break-word;
-}
-
-.main-table td:first-child{width:40px;text-align:center;font-weight:700;}
-.main-table td:nth-child(2){width:55%;}
-.main-table td:nth-child(3){font-weight:700;}
-
-.sign-table td{
-  border:2px solid #000;
-  padding:12px;
-  font-weight:700;
-}
-
-.no-print button, .no-print a{font-size:14px;}
-
-@media print{
-  .no-print{display:none !important;}
-  .page{padding:0;}
-}
-/* tighter so it fits in 1 page */
+/* A4 + tight margins */
 @page { size: A4; margin: 8mm; }
 
-.print-header img{
-  width:100%;
-  max-height:95px;   /* height कम */
-  object-fit:contain;
-  display:block;
-}
-
-/* main table compact */
-.main-table td{
-  padding:5px 7px;   /* row height कम */
-  font-size:14px;
-  line-height:1.15;
-  border:2px solid #000;
-}
-.top-lines{ margin:4px 0; }
-.title{ margin:6px 0; }
-
-/* prevent page break in the footer block */
-.post26, .main-table { page-break-inside: avoid; break-inside: avoid; }
-
-/* post-26 block styling */
-.post26{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:6px;
-  page-break-inside: avoid;
-}
-.post26 td{
-  border:2px solid #000;
-  padding:6px 8px;
-  font-size:14px;
-}
-.post26-head{ font-weight:700; }
-.post26-blank{ height:90px; }   /* 2 page हो तो 70px कर देना */
-.post26-blank2{ height:90px; }  /* 2 page हो तो 70px कर देना */
-.post26-date{ width:50%; font-weight:700; }
-.post26-sign{ width:50%; text-align:right; font-weight:700; }
-
-/* print: no extra UI */
 @media print{
-  .no-print{display:none !important;}
-  body{ background:#fff; }
-}
-/* HEADER MUST SHOW (screen + print) */
-.print-header{
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 6px 0 8px;
-}
-.print-header img{
-  width: 100%;
-  max-height: 110px;
-  object-fit: contain;
-  display: block;
-}
+  /* Always show header image */
+  .print-header, .print-header img,
+  #hdrImg, #opLogo{
+    display:block !important;
+    visibility:visible !important;
+  }
 
-/* PDF fit */
-@page { size: A4; margin: 8mm; }
-.main-table{ width:100%; border-collapse:collapse; margin-top:6px; }
-.main-table td{ border:2px solid #000; padding:5px 7px; font-size:14px; line-height:1.15; }
-.main-table .sn{ width:34px; text-align:center; }
-.main-table .k{ width:52%; }
-.main-table .v{ width:48%; }
+  /* Hide buttons / UI only */
+  .no-print,
+  .op-actions,
+  .app-header .actions,
+  .footer{
+    display:none !important;
+  }
 
-.post26{ width:100%; border-collapse:collapse; margin-top:6px; page-break-inside:avoid; break-inside:avoid; }
-.post26 td{ border:2px solid #000; padding:6px 8px; font-size:14px; }
-.post26-head{ font-weight:700; }
-.post26-blank{ height:85px; }
-.post26-blank2{ height:85px; }
-.post26-date{ width:50%; font-weight:700; }
-.post26-sign{ width:50%; text-align:right; font-weight:700; }
+  /* Base */
+  html, body{
+    background:#fff !important;
+    color:#000 !important;
+    margin:0 !important;
+    padding:0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
 
-/* PRINT: keep header, hide buttons only */
-@media print{
-  .no-print{ display:none !important; }
-  body{ background:#fff; color:#000; }
-  .card{ box-shadow:none; border:none; }
+  /* Page container */
+  .page{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 !important;
+  }
+
+  /* Header banner */
+  .print-header{
+    margin: 0 0 6px 0 !important;
+    padding: 0 !important;
+  }
+  .print-header img,
+  .brand-banner,
+  .print-banner{
+    width: 100% !important;
+    height: auto !important;
+    max-height: 95px !important;   /* reduce height so 1 page fits */
+    object-fit: contain !important;
+  }
+
+  /* Top lines + title compact */
+  .top-lines{
+    margin: 4px 0 !important;
+    font-size: 16px !important;
+    line-height: 1.15 !important;
+    font-weight: 700 !important;
+  }
+  .title, .sheet-title{
+    margin: 6px 0 !important;
+    padding: 6px 8px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+    text-align:center !important;
+  }
+
+  /* Main table compact (MOST IMPORTANT for 1-page) */
+  table{
+    width:100% !important;
+    border-collapse: collapse !important;
+  }
+  .main-table td,
+  .op-table td,
+  .print-table td,
+  .print-table th{
+    border: 2px solid #000 !important;
+    padding: 5px 7px !important;     /* row height reduce */
+    font-size: 14px !important;
+    line-height: 1.15 !important;
+    vertical-align: top !important;
+    word-break: break-word !important;
+  }
+
+  /* Column widths (stable layout) */
+  .main-table td:first-child,
+  .op-table .c1,
+  .print-table .c1{
+    width: 34px !important;
+    text-align:center !important;
+    font-weight:700 !important;
+  }
+  .main-table td:nth-child(2),
+  .op-table .c2{
+    width: 55% !important;
+  }
+  .main-table td:nth-child(3),
+  .op-table .c3{
+    width: 45% !important;
+    font-weight:700 !important;
+  }
+
+  /* Signature / post-table block compact */
+  .post26, .sign-wrap, .sign-table{
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-top: 6px !important;
+  }
+  .post26 td, .sign-table td{
+    border: 2px solid #000 !important;
+    padding: 6px 8px !important;
+    font-size: 14px !important;
+  }
+  .post26-blank, .post26-blank2{
+    height: 70px !important; /* IMPORTANT: reduce to avoid page-2 */
+  }
 }
