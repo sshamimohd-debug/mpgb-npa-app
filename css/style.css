@@ -170,3 +170,107 @@ h2{margin:0 0 12px 0;font-size:16px}
   .print-only{ display:block !important; }
   table.print-only{ display:table !important; }
 }
+/* ===== Onepager sheet look (no rounded "box") ===== */
+.onepager-page{max-width: 980px; margin: 0 auto;}
+.onepager-sheet.sheet{
+  background:#fff;
+  border:none;
+  border-radius:0;
+  box-shadow:none;
+  padding: 10px 10px 14px;
+}
+
+/* Header banner full width, height reduced */
+.print-header{
+  background: transparent;
+  border: none;
+  box-shadow:none;
+  padding: 8px 10px 0;
+}
+.brand-banner{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:110px;          /* height kam */
+  object-fit:contain;        /* full fit */
+}
+
+/* RO/Branch lines */
+.robr{
+  border:2px solid #000;
+  border-bottom: none;
+  margin-top: 6px;
+}
+.robr .ro-line, .robr .br-line{
+  display:flex;
+  gap:8px;
+  padding:8px 10px;
+  border-bottom:2px solid #000;
+  font-size:18px;
+  font-weight:700;
+}
+.robr .lbl{min-width:140px;}
+.robr .val{font-weight:400;}
+
+/* Title line */
+.sheet-title{
+  border:2px solid #000;
+  border-top:none;
+  padding:10px 10px;
+  text-align:center;
+  font-size:16px;
+  font-weight:700;
+}
+
+/* Main table */
+.op-table{
+  width:100%;
+  border-collapse:collapse;
+  border:2px solid #000;
+  border-top:none;
+}
+.op-table td{
+  border:2px solid #000;
+  padding:10px 10px;
+  vertical-align:top;
+  font-size:16px;
+}
+.op-table .c1{width:46px; text-align:center;}
+.op-table .c2{width:55%;}
+.op-table .c3{width:45%; font-weight:700; font-size:22px;}
+
+/* Signature area */
+.sign-wrap{
+  border:2px solid #000;
+  border-top:none;
+}
+.sign-row{
+  display:flex;
+  border-top:2px solid #000;
+}
+.sign-row:first-child{border-top:none;}
+.sign-row.big{min-height:90px;}
+.sign-cell{
+  flex:1;
+  padding:14px 10px;
+}
+.sign-cell.right{
+  border-left:2px solid #000;
+  text-align:right;
+}
+.sign-lbl{font-size:18px; font-weight:700;}
+
+/* Print controls */
+.no-print{display:block;}
+@media print{
+  body{background:#fff !important; color:#000 !important;}
+  .container{padding:0 !important;}
+  .no-print{display:none !important;}
+
+  /* keep header in print */
+  .app-header{display:block !important;}
+
+  /* avoid breaking table */
+  .onepager-sheet{page-break-inside:avoid;}
+  .op-table, .sign-wrap{page-break-inside:avoid;}
+}
