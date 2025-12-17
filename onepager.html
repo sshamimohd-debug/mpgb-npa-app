@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NPA One-Pager</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo">MPGB</div>
+      <div>
+        <div class="title">NPA One-Pager</div>
+        <div class="subtitle">Print/Save as PDF from browser • Unicode Hindi supported</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card onepager">
+      <div class="onepager-top">
+        <div>
+          <div class="op-title">प्राथमिक विवरण (One-Pager)</div>
+          <div class="op-sub" id="opSub"></div>
+        </div>
+        <div class="op-actions">
+          <button class="btn primary" id="btnPrint">Print / Save PDF</button>
+          <a class="btn" href="./index.html">Back</a>
+        </div>
+      </div>
+
+      <div id="opBody" class="op-body"></div>
+
+      <div class="op-note">
+        नोट: यह पेज केवल त्वरित संदर्भ हेतु है। अंतिम निर्णय/स्वीकृति बैंक के नियमों व सक्षम प्राधिकारी के अनुसार होगी।
+      </div>
+    </section>
+  </main>
+
+  <script src="js/onepager.js"></script>
+</body>
+</html>
