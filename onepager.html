@@ -7,9 +7,20 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+
   <header class="app-header">
     <div class="brand">
-      <div class="logo">MPGB</div>
+      <!-- Logo image -->
+      <img
+        src="assets/mpgb_logo.png"
+        alt="MPGB Logo"
+        class="brand-logo"
+        onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';"
+      />
+
+      <!-- Fallback (agar image load na ho) -->
+      <div class="logo" id="logoFallback" style="display:none;">MPGB</div>
+
       <div>
         <div class="title">NPA One-Pager</div>
         <div class="subtitle">Print/Save as PDF from browser • Unicode Hindi supported</div>
