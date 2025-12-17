@@ -1,139 +1,117 @@
-// MPGB NPA Quick Search (GitHub Pages static app)
+// ================== BASIC HELPERS ==================
 const $ = (id) => document.getElementById(id);
 
-const state = {
-  cache: new Map(),   // prefix -> object
-  current: null       // current record
-};
-
-function todayISO(){
-  const d = new Date();
-  const m = String(d.getMonth()+1).padStart(2,'0');
-  const day = String(d.getDate()).padStart(2,'0');
-  return `${d.getFullYear()}-${m}-${day}`;
+function kv(k, v){
+  const d = document.createElement('div');
+  d.className = 'kv';
+  d.innerHTML = `<b>${k}</b>: ${v ?? ''}`;
+  return d;
 }
 
-function cleanAcct(s){
-  return (s || '').toString().replace(/\s+/g,'').replace(/[^0-9]/g,'');
+function setText(id, value){
+  const el = document.getElementById(id);
+  if (el) el.textContent = value ?? '';
 }
 
+// ================== STORAGE ==================
+function saveFollowUp(acct, data){
+  localStorage.setItem('fu_'+acct, JSON.stringify(data));
+}
+function loadSaved(acct){
+  try{
+    return JSON.parse(localStorage.getItem('fu_'+acct));
+  }catch(e){ return null; }
+}
+
+// ================== DATA LOADING ==================
 async function loadChunk(prefix){
-  if (state.cache.has(prefix)) return state.cache.get(prefix);
-
-  const url = `data/chunks/${prefix}.json`;
-  const resp = await fetch(url, {cache:'no-store'});
-  if (!resp.ok) throw new Error(`Chunk not found: ${url}`);
-  const obj = await resp.json();
-  state.cache.set(prefix, obj);
-  return obj;
+  const res = await fetch(`data/chunks/${prefix}.json`);
+  if(!res.ok) throw new Error('Chunk not found');
+  return res.json();
 }
 
-function kv(label, value){
-  const div = document.createElement('div');
-  div.className = 'kv';
-  div.innerHTML = `<div class="k">${label}</div><div class="v">${value ?? ''}</div>`;
-  return div;
+// ================== MAIN SEARCH ==================
+async function doSearch(){
+  const acct = $('acct').value.trim();
+  if(!acct){
+    alert('Account number required');
+    return;
+  }
+
+  const prefix = acct.slice(0,3);
+  let rows;
+
+  try{
+    rows = await loadChunk(prefix);
+  }catch(e){
+    alert('Data not found for this account');
+    return;
+  }
+
+  const rec = rows.find(r => String(r['Acct Number']) === acct);
+  if(!rec){
+    alert('Account not found');
+    return;
+  }
+
+  renderResult(acct, rec);
 }
 
+// ================== RENDER RESULT ==================
 function renderResult(acct, rec){
   const box = $('result');
   box.innerHTML = '';
 
-  // Pick key fields (from your All NPA sheet headers)
-  const pick = [
-    ['Acct Number', acct],
-    ['Acct Name', rec['Acct Name']],
-    ['Mobile Num', rec['Mobile Num']],
+  // -------- SCREEN PREVIEW --------
+  const preview = [
+    ['Account Number', acct],
+    ['Account Name', rec['Acct Name']],
+    ['Mobile', rec['Mobile Num']],
     ['Branch', rec['Branch']],
-    ['Sol', rec['Sol']],
     ['Region', rec['Region']],
     ['Scheme Code', rec['Scheme Code']],
-    ['O/S Bal', rec['O/S Bal']],
+    ['O/S Balance', rec['O/S Bal']],
     ['Asset Code', rec['Asset Code 30.09.25'] ?? rec['Asset Code']],
     ['Days', rec['Days']],
-    ['Provision', rec['Provision']],
-    ['Remarks', rec['Remarks']]
+    ['Provision', rec['Provision']]
   ];
 
-  pick.forEach(([k,v]) => box.appendChild(kv(k, v)));
+  preview.forEach(([k,v]) => box.appendChild(kv(k,v)));
+
+  // -------- PRINT / PDF MAPPING --------
+  setText('p_name', rec['Acct Name']);
+  setText('p_mobile', rec['Mobile Num']);
+  setText('p_purpose', rec['Scheme Code']);
+  setText('p_acct', acct);
+  setText('p_date', $('dt').value);
+  setText('p_amt', $('amt').value);
+  setText('p_outstanding', rec['O/S Bal']);
+  setText('p_npa_date', rec['NPA Date']);
+  setText('p_asset_code', rec['Asset Code 30.09.25'] ?? rec['Asset Code']);
+  setText('p_provision', rec['Provision']);
+  setText('p_uci', rec['UCI']);
+  setText('p_uri', rec['URI']);
+  setText('p_offer_amt', $('amt').value);
+  setText('p_offer_pct', rec['Offer %']);
+  setText('p_wo', rec['WO']);
+  setText('p_pl_impact', rec['PL Impact']);
+  setText('p_total_wo', rec['Total WO']);
 
   $('resultCard').hidden = false;
-  $('savedBox').textContent = loadSaved(acct) || '(none)';
-}
 
-function saveFollowup(acct){
-  const payload = {
-    savedAt: new Date().toISOString(),
-    date: $('dt').value || null,
-    proposedCompromiseAmt: $('amt').value || null,
-    remarks: $('remarks').value || null
-  };
-  localStorage.setItem(`mpgb_npa_followup_${acct}`, JSON.stringify(payload, null, 2));
-  $('savedBox').textContent = JSON.stringify(payload, null, 2);
-}
-
-function loadSaved(acct){
-  return localStorage.getItem(`mpgb_npa_followup_${acct}`);
-}
-
-async function onSearch(){
-  const acct = cleanAcct($('acct').value);
-  if (!acct){
-    alert('Please enter Account Number');
-    return;
-  }
-  const prefix = acct.slice(0,3);
-  try{
-    const chunk = await loadChunk(prefix);
-    const rec = chunk[acct];
-    if (!rec){
-      alert('Account not found in this prefix file. If you generated full data, check chunks are uploaded.');
-      return;
-    }
-    state.current = {acct, rec};
-    renderResult(acct, rec);
-  }catch(e){
-    alert(e.message);
+  const saved = loadSaved(acct);
+  if(saved){
+    $('savedBox').textContent = JSON.stringify(saved, null, 2);
   }
 }
 
-function onClear(){
-  $('acct').value='';
-  $('amt').value='';
-  $('remarks').value='';
-  $('dt').value=todayISO();
-  $('resultCard').hidden=true;
-  $('result').innerHTML='';
-  $('savedBox').textContent='';
-  state.current=null;
-}
+// ================== BUTTONS ==================
+$('btnSearch').addEventListener('click', doSearch);
 
-function openOnePager(){
-  if (!state.current){
-    alert('Search an account first');
-    return;
-  }
-  const acct = state.current.acct;
-  const q = new URLSearchParams();
-  q.set('acct', acct);
-  // also pass follow-up inputs
-  q.set('dt', $('dt').value || '');
-  q.set('amt', $('amt').value || '');
-  q.set('remarks', $('remarks').value || '');
-  window.location.href = `onepager.html?${q.toString()}`;
-}
-
-window.addEventListener('DOMContentLoaded', () => {
-  $('dt').value = todayISO();
-  $('btnSearch').addEventListener('click', onSearch);
-  $('btnClear').addEventListener('click', onClear);
-  $('btnOnePager').addEventListener('click', openOnePager);
-  $('btnSave').addEventListener('click', () => {
-    const acct = cleanAcct($('acct').value);
-    if (!acct){ alert('Enter account number first'); return; }
-    saveFollowup(acct);
-  });
-
-  // allow Enter key
-  $('acct').addEventListener('keydown', (e)=>{ if (e.key==='Enter') onSearch(); });
+$('btnClear').addEventListener('click', () => {
+  $('acct').value = '';
+  $('amt').value = '';
+  $('remarks').value = '';
+  $('result').innerHTML = '';
+  $('resultCard').hidden = true;
 });
