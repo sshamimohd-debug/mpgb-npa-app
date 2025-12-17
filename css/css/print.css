@@ -1,141 +1,68 @@
-/* ===========================
-   MPGB NPA ONE-PAGER (PRINT)
-   Goal: 1 page, shrink, bank format
-   =========================== */
+/* ===== PRINT / PDF ONLY ===== */
+@media print {
 
-@page { size: A4; margin: 5mm; }
-
-@media print{
-  /* Base */
-  html, body{
-    margin:0 !important;
-    padding:0 !important;
-    background:#fff !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+  @page {
+    size: A4;
+    margin: 10mm;
   }
 
-  /* Hide top controls/extra section completely */
-  .no-print,
-  .onepager-top,
-  .op-actions,
-  .op-title,
-  .op-sub,
-  #opSub,
-  button,
-  a.btn{
-    display:none !important;
-    height:0 !important;
-    margin:0 !important;
-    padding:0 !important;
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: #000;
+    background: #fff;
   }
 
-  /* Container/card remove */
-  .container, .onepager-wrap, .card, .onepager, main{
-    margin:0 !important;
-    padding:0 !important;
-    box-shadow:none !important;
-    border-radius:0 !important;
-    background:#fff !important;
+  /* ===== HEADER FIX ===== */
+  .print-header img {
+    width: 100%;
+    max-height: 90px;   /* 🔥 HEADER HEIGHT CONTROL */
+    object-fit: contain;
+    margin-bottom: 6px;
   }
 
-  /* Header: smaller */
-  .print-header{
-    margin:0 0 4px 0 !important;
-    padding:0 !important;
-  }
-  .print-header img, #hdrImg{
-    display:block !important;
-    width:100% !important;
-    height:auto !important;
-    max-height: 50px !important;     /* HEADER SMALL */
-    object-fit: contain !important;
+  .print-header {
+    margin-bottom: 6px;
   }
 
-  /* RO line: one line compact */
-  .roline{
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    margin: 2px 0 4px 0 !important;
-    line-height: 1.05 !important;
-    white-space: nowrap !important;
-  }
-  .roline .sep{ margin:0 6px !important; font-weight:400 !important; }
-
-  /* Title band compact */
-  .title-band{
-    font-size: 13px !important;
-    font-weight: 700 !important;
-    text-align: center !important;
-    padding: 4px 6px !important;
-    margin: 2px 0 5px 0 !important;
-    border: 2px solid #000 !important;
+  /* ===== TABLE FIX ===== */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
   }
 
-  /* Tables */
-  table{
-    width:100% !important;
-    border-collapse: collapse !important;
-    table-layout: fixed !important;
+  th, td {
+    border: 1px solid #000;     /* 🔥 border thinner */
+    padding: 4px 6px;           /* 🔥 row height reduce */
+    font-size: 13px;            /* 🔥 font smaller */
+    line-height: 1.15;
+    vertical-align: top;
+    word-break: break-word;
   }
 
-  /* MAIN TABLE cells */
-  .main-table td{
-    border: 2px solid #000 !important;
-    padding: 2px 5px !important;
-    font-size: 12px !important;
-    line-height: 1.06 !important;
-    vertical-align: top !important;
-    word-break: break-word !important;
+  td:nth-child(1) {
+    width: 32px;
+    text-align: center;
+    font-weight: 600;
   }
 
-  /* Column widths using your classes (better than nth-child) */
-  .main-table td.sn{
-    width: 36px !important;
-    text-align:center !important;
-    font-weight: 700 !important;
-    white-space: nowrap !important;     /* 10/11/12 never wrap */
-  }
-  .main-table td.k{
-    width: 68% !important;              /* LABEL BIG */
-  }
-  .main-table td.v{
-    width: 32% !important;              /* VALUE SMALL */
-    font-weight: 700 !important;
+  td:nth-child(2) {
+    width: 48%;
   }
 
-  /* Empty value rows short */
-  .main-table td.v:empty,
-  .main-table td.v:blank{
-    height: 14px !important;
-    padding: 1px 5px !important;
-  }
-  /* Also handle your blank values as single space " " */
-  .main-table td.v{
-    min-height: 0 !important;
+  td:nth-child(3) {
+    width: 52%;
+    font-weight: 600;
   }
 
-  /* Post-26 table compact */
-  .post26 td{
-    border: 2px solid #000 !important;
-    padding: 3px 6px !important;
-    font-size: 12px !important;
-    line-height: 1.06 !important;
-  }
-  .post26-head{ font-weight: 700 !important; }
-  .post26-blank, .post26-blank2{
-    height: 45px !important;            /* shrink big blank boxes */
+  /* ===== AVOID PAGE BREAK ===== */
+  table, tr, td {
+    page-break-inside: avoid;
   }
 
-  /* Avoid page breaks inside anything */
-  table, tr, td, .post26{
-    break-inside: avoid !important;
-    page-break-inside: avoid !important;
+  .page {
+    page-break-inside: avoid;
   }
 
-  /* Last resort: micro scale to guarantee 1 page */
-  body{
-    transform: scale(0.97);
-    transform-origin: top left;
-  }
 }
