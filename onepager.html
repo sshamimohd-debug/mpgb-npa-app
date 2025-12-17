@@ -2,85 +2,80 @@
 <html lang="hi">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>NPA One Pager</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-
-<!-- ===== BANK HEADER (FULL WIDTH) ===== -->
-<div class="print-header">
-  <img src="assets/mpgb_logo.png" alt="MPGB Header">
-</div>
-
-<!-- ===== BODY ===== -->
-<div class="page">
-
-  <div class="top-lines">
-    <div>क्षेत्रीय कार्यालय <b id="pRO"></b></div>
-    <div>शाखा <b id="pBranch"></b></div>
+  <div class="print-header">
+    <img src="assets/mpgb_logo.png" alt="MPGB Header">
   </div>
 
-  <div class="title">
-    एनपीए प्रबंधन के अंतर्गत समझौता स्वीकृति हेतु प्राथमिक जानकारी –
+  <div class="page">
+    <div class="top-lines">
+      <div>क्षेत्रीय कार्यालय <b id="pRO"></b></div>
+      <div>शाखा <b id="pBranch"></b></div>
+    </div>
+
+    <div class="title">
+      एनपीए प्रबंधन के अंतर्गत समझौता स्वीकृति हेतु प्राथमिक जानकारी –
+    </div>
+
+    <table class="main-table">
+      <tbody>
+        <tr><td>1</td><td>हितग्राही का नाम</td><td id="pName"></td></tr>
+        <tr><td>2</td><td>हितग्राही का मोबाइल नंबर</td><td id="pMobile"></td></tr>
+        <tr><td>3</td><td>ऋण का उद्देश्य (Scheme)</td><td id="pScheme"></td></tr>
+        <tr><td>4</td><td>खाता क्रमांक</td><td id="pAccount"></td></tr>
+        <tr><td>5</td><td>स्वीकृति दिनांक</td><td id="pSanctionDate"></td></tr>
+        <tr><td>6</td><td>स्वीकृत राशि</td><td id="pSanctionAmt"></td></tr>
+        <tr><td>7</td><td>बकाया राशि</td><td id="pOutstanding"></td></tr>
+        <tr><td>8</td><td>एनपीए दिनांक</td><td id="pNpaDate"></td></tr>
+        <tr><td>9</td><td>आस्ति कोड</td><td id="pAsset"></td></tr>
+        <tr><td>10</td><td>प्रावधान</td><td id="pProvision"></td></tr>
+        <tr><td>11</td><td>UCI</td><td id="pUci"></td></tr>
+        <tr><td>12</td><td>URI</td><td id="pUri"></td></tr>
+        <tr><td>13</td><td>प्रस्तावित समझौता राशि</td><td id="pOts"></td></tr>
+        <tr><td>14</td><td>समझौता राशि का प्रतिशत</td><td id="pOtsPct"></td></tr>
+        <tr><td>15</td><td>अधित्याग (W/O)</td><td id="pWO"></td></tr>
+        <tr><td>16</td><td>लाभ-हानि का प्रभाव</td><td id="pPLImpact"></td></tr>
+        <tr><td>17</td><td>कुल अधित्याग</td><td id="pTotalSacrifice"></td></tr>
+
+        <tr><td>18</td><td>सुरक्षा प्रतिभूति का विवरण (बंधक/दृष्टि बंधक/चेक)</td><td></td></tr>
+        <tr><td>19</td><td>कानूनी कार्यवाही (वाद दायर/138/डीआरटी/टिक्की स्थिति/आर.आर.सी.)</td><td></td></tr>
+        <tr><td>20</td><td>दस्तावेज़ की स्थिति (Update/Timebarred)</td><td></td></tr>
+        <tr><td>21</td><td>ऋणी की स्थिति (मृत/जीवित/अशक्त/गंभीर बीमारी)</td><td></td></tr>
+        <tr><td>22</td><td>धोखाधड़ी / एफ.आई.आर. की स्थिति</td><td></td></tr>
+        <tr><td>23</td><td>ऋण वसूली के प्रयास</td><td></td></tr>
+        <tr><td>24</td><td>भविष्य में वसूली की संभावनाएँ</td><td></td></tr>
+        <tr><td>25</td><td>सिविल/क्रि. की स्थिति (स्टॉक एवं ऋण खाते की स्थिति)</td><td></td></tr>
+        <tr><td>26</td><td>एसआर की स्थिति</td><td></td></tr>
+      </tbody>
+    </table>
+
+    <table class="sign-table">
+      <tr>
+        <td>दिनांक</td>
+        <td style="text-align:right">शाखा प्रबंधक</td>
+      </tr>
+      <tr>
+        <td colspan="2" style="height:80px">
+          क्षेत्रीय कार्यालय (RM/DRM/CMRD प्रमुख) का अनुमोदन :
+        </td>
+      </tr>
+      <tr>
+        <td>दिनांक</td>
+        <td style="text-align:right">क्षेत्रीय प्रबंधक</td>
+      </tr>
+    </table>
+
+    <div class="no-print" style="margin-top:15px">
+      <button id="btnPrint">Print / Save PDF</button>
+      <a href="index.html">Back</a>
+    </div>
   </div>
 
-  <!-- ===== MAIN TABLE ===== -->
-  <table class="main-table">
-    <tbody>
-      <tr><td>1</td><td>हितग्राही का नाम</td><td id="pName"></td></tr>
-      <tr><td>2</td><td>हितग्राही का मोबाइल नंबर</td><td id="pMobile"></td></tr>
-      <tr><td>3</td><td>ऋण का उद्देश्य</td><td id="pScheme"></td></tr>
-      <tr><td>4</td><td>खाता क्रमांक</td><td id="pAccount"></td></tr>
-      <tr><td>5</td><td>स्वीकृति दिनांक</td><td id="pSanctionDate"></td></tr>
-      <tr><td>6</td><td>स्वीकृत राशि</td><td id="pSanctionAmt"></td></tr>
-      <tr><td>7</td><td>बकाया राशि</td><td id="pOutstanding"></td></tr>
-      <tr><td>8</td><td>एनपीए दिनांक</td><td id="pNpaDate"></td></tr>
-      <tr><td>9</td><td>आस्ति कोड</td><td id="pAsset"></td></tr>
-      <tr><td>10</td><td>प्रावधान</td><td id="pProvision"></td></tr>
-      <tr><td>11</td><td>UCI</td><td id="pUci"></td></tr>
-      <tr><td>12</td><td>URI</td><td id="pUri"></td></tr>
-      <tr><td>13</td><td>प्रस्तावित समझौता राशि</td><td id="pOts"></td></tr>
-      <tr><td>14</td><td>समझौता राशि का प्रतिशत</td><td id="pOtsPct"></td></tr>
-      <tr><td>15</td><td>अधित्याग (W/O)</td><td id="pWO"></td></tr>
-      <tr><td>16</td><td>लाभ-हानि का प्रभाव</td><td id="pPLImpact"></td></tr>
-      <tr><td>17</td><td>कुल अधित्याग</td><td id="pTotalSacrifice"></td></tr>
-      <tr><td>18</td><td>सुरक्षा प्रतिभूति का विवरण</td><td></td></tr>
-      <tr><td>19</td><td>कानूनी कार्यवाही</td><td></td></tr>
-      <tr><td>20</td><td>दस्तावेज़ की स्थिति</td><td></td></tr>
-      <tr><td>21</td><td>ऋणी की स्थिति</td><td></td></tr>
-      <tr><td>22</td><td>धोखाधड़ी / FIR की स्थिति</td><td></td></tr>
-      <tr><td>23</td><td>ऋण वसूली के प्रयास</td><td></td></tr>
-      <tr><td>24</td><td>भविष्य में वसूली की संभावनाएं</td><td></td></tr>
-      <tr><td>25</td><td>सिविल/क्रि. की स्थिति</td><td></td></tr>
-      <tr><td>26</td><td>एसआर की स्थिति</td><td></td></tr>
-    </tbody>
-  </table>
-
-  <!-- ===== SIGNATURE ===== -->
-  <table class="sign-table">
-    <tr>
-      <td>दिनांक</td>
-      <td style="text-align:right">शाखा प्रबंधक</td>
-    </tr>
-    <tr>
-      <td colspan="2" style="height:80px">
-        क्षेत्रीय कार्यालय (RM/DRM/CMRD प्रमुख) का अनुमोदन :
-      </td>
-    </tr>
-    <tr>
-      <td>दिनांक</td>
-      <td style="text-align:right">क्षेत्रीय प्रबंधक</td>
-    </tr>
-  </table>
-
-  <div class="no-print" style="margin-top:15px">
-    <button onclick="window.print()">Print / Save PDF</button>
-    <a href="index.html">Back</a>
-  </div>
-
-</div>
-
-<script src="js/onepager.js"></script>
+  <script src="js/onepager.js"></script>
 </body>
 </html>
