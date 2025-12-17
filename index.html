@@ -29,7 +29,7 @@
     <div class="grid">
       <label class="field">
         <span>Account Number</span>
-        <input id="acct" placeholder="Enter Account Number">
+        <input id="acct" inputmode="numeric" placeholder="Enter Account Number">
       </label>
 
       <label class="field">
@@ -39,7 +39,7 @@
 
       <label class="field">
         <span>Amount</span>
-        <input id="amt" placeholder="Enter Amount">
+        <input id="amt" inputmode="decimal" placeholder="Enter Amount">
       </label>
 
       <label class="field field-wide">
@@ -49,18 +49,18 @@
     </div>
 
     <div class="actions">
-      <button id="btnSearch" onclick="searchData()">Search</button>
-      <button onclick="clearForm()">Clear</button>
+      <!-- IMPORTANT: id same rakha gaya hai jo app.js use karta hai -->
+      <button id="btnSearch">Search</button>
+      <button id="btnClear">Clear</button>
     </div>
   </section>
 
   <!-- RESULT PREVIEW -->
-  <section class="card" id="resultCard" style="display:none;">
+  <section class="card" id="resultCard" hidden>
     <h2>Result Preview</h2>
 
-    <div id="resultPreview">
-      <!-- JS yahan preview dikha sakta hai -->
-    </div>
+    <!-- 🔥 app.js isi div me HTML inject karta hai -->
+    <div id="result"></div>
 
     <div class="actions">
       <button onclick="window.print()">Print / Save PDF</button>
@@ -75,22 +75,19 @@
 <!-- ================= PRINT / PDF SECTION ================= -->
 <div class="page">
 
-  <!-- Bank Header -->
   <div class="print-header">
     <img src="assets/mpgb-header.png" alt="MPGB Header">
   </div>
 
-  <!-- Office line -->
   <div class="office-line">
     क्षेत्रीय कार्यालय <b>Damoh</b> | शाखा <b>Sihora</b>
   </div>
 
-  <!-- Title -->
   <div class="form-title">
     एनपीए प्रबंधन के अंतर्गत समझौता स्वीकृति हेतु प्रारंभिक जानकारी
   </div>
 
-  <!-- MAIN TABLE -->
+  <!-- FULL ONE-PAGER TABLE -->
   <table id="printTable">
     <tr><td>1</td><td>हितग्राही का नाम</td><td id="p_name"></td></tr>
     <tr><td>2</td><td>हितग्राही का मोबाइल नंबर</td><td id="p_mobile"></td></tr>
@@ -99,20 +96,26 @@
     <tr><td>5</td><td>स्वीकृति दिनांक</td><td id="p_date"></td></tr>
     <tr><td>6</td><td>स्वीकृत राशि</td><td id="p_amt"></td></tr>
     <tr><td>7</td><td>बकाया राशि</td><td id="p_outstanding"></td></tr>
+    <tr><td>8</td><td>एनपीए दिनांक</td><td id="p_npa_date"></td></tr>
+    <tr><td>9</td><td>आस्ति कोड</td><td id="p_asset_code"></td></tr>
+    <tr><td>10</td><td>प्रावधान</td><td id="p_provision"></td></tr>
+    <tr><td>11</td><td>UCI</td><td id="p_uci"></td></tr>
+    <tr><td>12</td><td>URI</td><td id="p_uri"></td></tr>
+    <tr><td>13</td><td>प्रस्तावित समझौता राशि</td><td id="p_offer_amt"></td></tr>
+    <tr><td>14</td><td>समझौता राशि का प्रतिशत</td><td id="p_offer_pct"></td></tr>
+    <tr><td>15</td><td>अधिशेष (W/O)</td><td id="p_wo"></td></tr>
+    <tr><td>16</td><td>लाभ हानि का प्रभाव</td><td id="p_pl_impact"></td></tr>
+    <tr><td>17</td><td>कुल अधिशेष</td><td id="p_total_wo"></td></tr>
 
     <tr class="opinion-row">
       <td colspan="3">शाखा प्रबंधक का अभिमत</td>
     </tr>
-    <tr class="remarks-row">
-      <td colspan="3"></td>
-    </tr>
+    <tr class="remarks-row"><td colspan="3"></td></tr>
 
     <tr class="opinion-row">
       <td colspan="3">क्षेत्रीय कार्यालय का अभिमत</td>
     </tr>
-    <tr class="remarks-row">
-      <td colspan="3"></td>
-    </tr>
+    <tr class="remarks-row"><td colspan="3"></td></tr>
 
     <tr class="sign-row">
       <td colspan="2">दिनांक :</td>
@@ -128,33 +131,8 @@
 <!-- ================= END PRINT SECTION ================= -->
 
 
+<!-- ORIGINAL APP LOGIC -->
 <script src="js/app.js"></script>
-
-<script>
-/* BASIC FRONT-END HELPERS (SAFE) */
-
-function clearForm() {
-  document.getElementById('acct').value = '';
-  document.getElementById('dt').value = '';
-  document.getElementById('amt').value = '';
-  document.getElementById('remarks').value = '';
-  document.getElementById('resultCard').style.display = 'none';
-}
-
-/* Ye sirf demo ke liye hai
-   Aapka actual js/app.js isko override kar sakta hai */
-function searchData() {
-  document.getElementById('resultCard').style.display = 'block';
-
-  // Example mapping (JS already kar raha hoga)
-  document.getElementById('p_acct').innerText =
-    document.getElementById('acct').value;
-  document.getElementById('p_date').innerText =
-    document.getElementById('dt').value;
-  document.getElementById('p_amt').innerText =
-    document.getElementById('amt').value;
-}
-</script>
 
 </body>
 </html>
