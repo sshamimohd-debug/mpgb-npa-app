@@ -324,3 +324,69 @@ table{
 @media print{
   .no-print{display:none}
 }
+/* ====== Hindi font embed (prevents ￾ broken glyphs) ====== */
+@font-face{
+  font-family: "NotoDeva";
+  src: url("../assets/fonts/NotoSansDevanagari-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+html, body{
+  background:#fff;
+  color:#000;
+  font-family: "NotoDeva", Mangal, "Nirmala UI", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.print-header img{
+  width:100%;
+  height:auto;
+  max-height:110px;     /* height kam */
+  object-fit:contain;   /* full fit */
+  display:block;
+}
+
+.page{max-width:900px;margin:0 auto;padding:0 6px;}
+
+.top-lines{
+  font-size:18px;
+  font-weight:700;
+  margin:8px 0;
+  line-height:1.2;
+}
+
+.title{
+  text-align:center;
+  font-weight:700;
+  margin:10px 0;
+}
+
+table{width:100%; border-collapse:collapse;}
+
+.main-table td{
+  border:2px solid #000;
+  padding:8px;
+  font-size:16px;
+  vertical-align:top;
+  word-break:break-word;
+}
+
+.main-table td:first-child{width:40px;text-align:center;font-weight:700;}
+.main-table td:nth-child(2){width:55%;}
+.main-table td:nth-child(3){font-weight:700;}
+
+.sign-table td{
+  border:2px solid #000;
+  padding:12px;
+  font-weight:700;
+}
+
+.no-print button, .no-print a{font-size:14px;}
+
+@media print{
+  .no-print{display:none !important;}
+  .page{padding:0;}
+}
