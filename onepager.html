@@ -5,6 +5,63 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NPA One-Pager</title>
   <link rel="stylesheet" href="css/style.css" />
+
+  <!-- ✅ FINAL: Print header shrink + one-page friendly print -->
+  <style>
+    /* ---------- PRINT ONLY FIXES ---------- */
+    @media print {
+
+      /* page margins tight for one-pager */
+      @page { size: A4; margin: 8mm; }
+
+      /* hide screen header in print */
+      .app-header { display: none !important; }
+
+      /* shrink the PDF banner */
+      .print-header{
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        margin: 0 0 6px 0 !important;
+        padding: 0 !important;
+      }
+      .print-banner{
+        height: 28mm;          /* ✅ header छोटा */
+        width: auto !important;
+        max-width: 85% !important; /* ✅ full width नहीं */
+        object-fit: contain;
+        display: block;
+      }
+
+      /* meta line compact */
+      .ph-meta{
+        margin: 0 0 6px 0 !important;
+        font-size: 10pt !important;
+        line-height: 1.1 !important;
+      }
+
+      /* table compact to fit 1 page */
+      .print-table{
+        width: 100% !important;
+        border-collapse: collapse !important;
+        font-size: 9.5pt !important;
+        line-height: 1.15 !important;
+      }
+      .print-table td, .print-table th{
+        padding: 3px 6px !important;
+        vertical-align: top !important;
+      }
+
+      /* column widths: SL no small, label large, value medium */
+      .print-table .c1{ width: 8% !important; text-align:center; }
+      .print-table .c2{ width: 62% !important; }
+      .print-table td[id]{ width: 30% !important; }
+
+      /* never split this section across pages */
+      .print-header, .ph-meta, .print-table { page-break-inside: avoid !important; }
+      tr { page-break-inside: avoid !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -48,9 +105,7 @@
         नोट: यह पेज केवल त्वरित संदर्भ हेतु है। अंतिम निर्णय/स्वीकृति बैंक के नियमों व सक्षम प्राधिकारी के अनुसार होगी।
       </div>
 
-      <!-- =========================
-           PRINT HEADER (PDF ONLY)
-           ========================= -->
+      <!-- PRINT HEADER (PDF ONLY) -->
       <div class="print-only print-header">
         <img src="assets/mpgb_header.png" alt="MPGB Header" class="print-banner">
       </div>
@@ -60,9 +115,7 @@
         <div><b>शाखा</b> : <span id="pBranch2"></span></div>
       </div>
 
-      <!-- =========================
-           PRINT TABLE (PDF ONLY)
-           ========================= -->
+      <!-- PRINT TABLE (PDF ONLY) -->
       <table class="print-only print-table">
         <tr>
           <th class="pt-center" colspan="3">एनपीए प्रबंधन के अंतर्गत समझौता स्वीकृति हेतु प्राथमिक जानकारी</th>
@@ -87,7 +140,6 @@
         <tr><td class="c1">16</td><td class="c2">लाभ-हानि का प्रभाव</td><td id="pPLImpact"></td></tr>
         <tr><td class="c1">17</td><td class="c2">कुल अधित्याग</td><td id="pTotalSacrifice"></td></tr>
 
-        <!-- 18-26 blank rows for manual writing after print -->
         <tr><td class="c1">18</td><td class="c2">सुरक्षा प्रताभूति का विवरण (बंधक/दृष्टि बंधक/चेक)</td><td></td></tr>
         <tr><td class="c1">19</td><td class="c2">कानूनी कार्यवाही (वाद दायर/138/डीआरटी/टिक्की/आर.आर.सी.)</td><td></td></tr>
         <tr><td class="c1">20</td><td class="c2">दस्तावेज़ की स्थिति (Update/Timebarred)</td><td></td></tr>
