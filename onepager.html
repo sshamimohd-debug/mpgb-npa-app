@@ -44,7 +44,7 @@
       .print-table{
         width: 100% !important;
         border-collapse: collapse !important;
-        font-size: 9.5pt !important;
+        font-size: 9pt !important;
         line-height: 1.15 !important;
       }
       .print-table td, .print-table th{
@@ -60,6 +60,47 @@
       /* never split this section across pages */
       .print-header, .ph-meta, .print-table { page-break-inside: avoid !important; }
       tr { page-break-inside: avoid !important; }
+       /* ================================================= */
+      /* ✅ SIGNATURE / ATTACHED BLOCK – ADD EXACTLY HERE */
+      /* ================================================= */
+
+      .sign-table{
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 6px;
+        font-size: 9pt;
+        line-height: 1.1;
+      }
+      .sign-table td{
+        border: 1px solid #111;
+        padding: 4px 6px;
+        vertical-align: top;
+      }
+      .sign-box .sign-area{
+        height: 16mm;      /* signature space */
+        margin-top: 4px;
+      }
+      .sign-mini{
+        height: 12mm;
+        vertical-align: middle;
+      }
+      .sign-line{
+        border-bottom: 1px solid #111;
+        height: 8mm;
+        margin-top: 2px;
+      }
+      .muted{
+        font-weight: normal;
+        font-size: 8.5pt;
+      }
+      .sign-table,
+      .sign-table tr{
+        page-break-inside: avoid !important;
+      }
+
+      /* ================================================= */
+      /* ✅ SIGNATURE BLOCK CSS END */
+      /* ================================================= */
     }
   </style>
 </head>
@@ -150,6 +191,44 @@
         <tr><td class="c1">25</td><td class="c2">सिविल/क्रि. की स्थिति (रूको एवं ऋण खातों की स्थिति)</td><td></td></tr>
         <tr><td class="c1">26</td><td class="c2">एसआर की स्थिति</td><td></td></tr>
       </table>
+<!-- SIGN / REMARKS BLOCK (PRINT ONLY) -->
+<table class="print-only sign-table">
+  <tr>
+    <td class="sign-box" colspan="2">
+      <b>शाखा प्रबंधक का अभिमत</b> <span class="muted">(बिंदु क्र. 17 से 26 के अनुसार)</span>
+      <div class="sign-area"></div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="sign-mini">
+      <b>दिनांक</b>
+      <div class="sign-line"></div>
+    </td>
+    <td class="sign-mini" style="text-align:right;">
+      <b>शाखा प्रबंधक</b>
+      <div class="sign-line"></div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="sign-box" colspan="2">
+      <b>क्षेत्रीय कार्यालय</b> <span class="muted">(RM/DRM/CMRD प्रमुख) का अभिमत</span> :
+      <div class="sign-area"></div>
+    </td>
+  </tr>
+
+  <tr>
+    <td class="sign-mini">
+      <b>दिनांक</b>
+      <div class="sign-line"></div>
+    </td>
+    <td class="sign-mini" style="text-align:right;">
+      <b>क्षेत्रीय प्रबंधक</b>
+      <div class="sign-line"></div>
+    </td>
+  </tr>
+</table>
 
     </section>
   </main>
