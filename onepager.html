@@ -64,43 +64,38 @@
       /* ✅ SIGNATURE / ATTACHED BLOCK – ADD EXACTLY HERE */
       /* ================================================= */
 
-      .sign-table{
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 6px;
-        font-size: 9pt;
-        line-height: 1.1;
-      }
-      .sign-table td{
-        border: 1px solid #111;
-        padding: 4px 6px;
-        vertical-align: top;
-      }
-      .sign-box .sign-area{
-        height: 16mm;      /* signature space */
-        margin-top: 4px;
-      }
-      .sign-mini{
-        height: 12mm;
-        vertical-align: middle;
-      }
-      .sign-line{
-        border-bottom: 1px solid #111;
-        height: 8mm;
-        margin-top: 2px;
-      }
-      .muted{
-        font-weight: normal;
-        font-size: 8.5pt;
-      }
-      .sign-table,
-      .sign-table tr{
-        page-break-inside: avoid !important;
-      }
+.sign-as-rows{
+  margin-top: 6px;
+}
 
-      /* ================================================= */
-      /* ✅ SIGNATURE BLOCK CSS END */
-      /* ================================================= */
+.sign-as-rows .sign-area{
+  height: 38mm;          /* ✅ बड़ा writing space (BM / RO) */
+}
+
+.sign-as-rows .sign-line{
+  border-bottom: 1px solid #111;
+  height: 8mm;           /* normal date/sign row */
+  margin-top: 2px;
+}
+
+.pt-right{
+  text-align: right;
+}
+
+.muted{
+  font-weight: normal;
+  font-size: 8.5pt;
+}
+
+.sign-as-rows,
+.sign-as-rows tr{
+  page-break-inside: avoid !important;
+}
+
+/* ================================================= */
+/* ✅ SIGNATURE BLOCK CSS END */
+/* ================================================= */
+
     }
   </style>
 </head>
