@@ -6,18 +6,22 @@
   <title>NPA One-Pager</title>
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- ✅ FINAL: Print header shrink + one-page friendly print -->
   <style>
-    /* ---------- PRINT ONLY FIXES ---------- */
+    /* ===================== PRINT ONLY ===================== */
     @media print {
 
-      /* page margins tight for one-pager */
+      /* A4 one-pager */
       @page { size: A4; margin: 8mm; }
 
-      /* hide screen header in print */
+      html, body { margin: 0 !important; padding: 0 !important; }
+
+      /* Center the printable canvas (fix left shift) */
+      body { display: flex !important; justify-content: center !important; }
+
+      /* Hide screen header in print */
       .app-header { display: none !important; }
 
-      /* shrink the PDF banner */
+      /* Print header/banner shrink */
       .print-header{
         display: flex !important;
         justify-content: center;
@@ -26,95 +30,123 @@
         padding: 0 !important;
       }
       .print-banner{
-        height: 28mm;          /* ✅ header छोटा */
+        height: 24mm;          /* shrink */
         width: auto !important;
-        max-width: 85% !important; /* ✅ full width नहीं */
+        max-width: 82% !important;
         object-fit: contain;
         display: block;
       }
 
-      /* meta line compact */
+      /* Meta line */
       .ph-meta{
         margin: 0 0 6px 0 !important;
         font-size: 10pt !important;
         line-height: 1.1 !important;
       }
 
-      /* table compact to fit 1 page */
+      /* Table compact */
       .print-table{
-        width: 100% !important;
+        width: 186mm !important;     /* keep centered + stable width */
         border-collapse: collapse !important;
-        font-size: 9pt !important;
-        line-height: 1.15 !important;
+        font-size: 9.1pt !important;
+        line-height: 1.12 !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
       }
       .print-table td, .print-table th{
-        padding: 3px 6px !important;
-        vertical-align: top !important;
+        border: 1px solid #111;
+        padding: 2px 6px !important;
+        vertical-align: bottom !important;  /* bottom align overall */
       }
+      .pt-center{ text-align:center; }
+      .pt-right{ text-align:right; }
 
-      /* column widths: SL no small, label large, value medium */
-      .print-table .c1{ width: 8% !important; text-align:center; }
-      .print-table .c2{ width: 62% !important; }
-      .print-table td[id]{ width: 30% !important; }
+      /* Column widths */
+      .c1{ width: 8% !important; text-align:center; }
+      .c2{ width: 62% !important; }
+      .c3{ width: 30% !important; }
 
-      /* never split this section across pages */
+      /* Never split these */
       .print-header, .ph-meta, .print-table { page-break-inside: avoid !important; }
       tr { page-break-inside: avoid !important; }
-       /* ================================================= */
-      /* ✅ SIGNATURE / ATTACHED BLOCK – ADD EXACTLY HERE */
-      /* ================================================= */
 
-.sign-as-rows{
-  margin-top: 6px;
-}
+      /* ===== Signature final ===== */
+      .sign-title{
+        text-align: left !important;
+        font-size: 9.4pt !important;
+        padding: 3px 6px !important;
+        vertical-align: bottom !important;
+      }
+      .muted{
+        font-weight: normal;
+        font-size: 8.4pt;
+      }
+      .sign-area{
+        height: 24mm;     /* ✅ smaller to keep 1 page */
+      }
 
-.sign-as-rows .sign-area{
-  height: 30mm;          /* ✅ बड़ा writing space (BM / RO) */
-}
+      /* Date/Signature row: 2 columns, no extra 3rd column */
+      .ds-wrap{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: end;     /* bottom */
+      }
+      .ds-cell{
+        min-height: 10mm;
+        padding: 3px 6px;
+      }
 
-.sign-as-rows .sign-line{
-  border-bottom: 1px solid #111;
-  height: 8mm;           /* normal date/sign row */
-  margin-top: 2px;
-}
+      /* Keep the signature section on same page */
+      .sign-final, .sign-final tr { page-break-inside: avoid !important; }
+    }
 
-.pt-right{
-  text-align: right;
-}
+    /* ===================== SCREEN UI (simple) ===================== */
+    body{ font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    .container{ max-width: 980px; margin: 16px auto; padding: 0 12px; }
+    .card{ background:#fff; border-radius: 14px; box-shadow: 0 10px 24px rgba(0,0,0,.08); padding: 14px; }
+    .app-header{ position: sticky; top:0; background:#0b3a57; color:#fff; padding:10px 12px; z-index:5; }
+    .brand{ display:flex; gap:10px; align-items:center; max-width:980px; margin:0 auto; padding:0 12px; }
+    .brand-logo{ height:34px; width:auto; object-fit:contain; background:#fff; border-radius:8px; padding:2px 6px; }
+    .logo{ width:44px; height:34px; background:#fff; color:#0b3a57; border-radius:8px; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    .title{ font-weight:800; font-size:16px; }
+    .subtitle{ opacity:.9; font-size:12px; }
 
-.muted{
-  font-weight: normal;
-  font-size: 8.5pt;
-}
+    .onepager-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; flex-wrap:wrap; }
+    .op-title{ font-weight:900; font-size:18px; }
+    .op-sub{ color:#444; font-size:12px; margin-top:4px; }
+    .op-actions{ display:flex; gap:8px; }
+    .btn{ border:1px solid #d0d7de; background:#fff; padding:8px 10px; border-radius:10px; cursor:pointer; text-decoration:none; color:#111; font-weight:700; }
+    .btn.primary{ background:#0b3a57; border-color:#0b3a57; color:#fff; }
+    .op-body{ margin-top:10px; display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    .kv{ border:1px solid #eee; border-radius:12px; padding:10px; }
+    .kv b{ display:block; font-size:12px; color:#666; margin-bottom:4px; }
+    .op-note{ margin-top:10px; font-size:12px; color:#444; }
 
-.sign-as-rows,
-.sign-as-rows tr{
-  page-break-inside: avoid !important;
-}
-
-/* ================================================= */
-/* ✅ SIGNATURE BLOCK CSS END */
-/* ================================================= */
-
+    /* print-only / screen-only helpers */
+    .print-only{ display:none; }
+    @media print{
+      .print-only{ display:block !important; }
+      .screen-only{ display:none !important; }
+      .card{ box-shadow:none !important; padding:0 !important; border-radius:0 !important; }
+      .container{ max-width:none !important; margin:0 !important; padding:0 !important; }
     }
   </style>
 </head>
-<body>
 
-  <!-- Screen header (normal view) -->
-  <header class="app-header">
+<body>
+  <!-- Screen header -->
+  <header class="app-header screen-only">
     <div class="brand">
       <img
         src="assets/mpgb_header.png"
-        alt="MPGB Logo"
+        alt="MPGB"
         class="brand-logo"
         onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';"
       />
       <div class="logo" id="logoFallback" style="display:none;">MPGB</div>
-
       <div>
         <div class="title">NPA One-Pager</div>
-        <div class="subtitle">Print/Save as PDF from browser • Unicode Hindi supported</div>
+        <div class="subtitle">Print / Save as PDF • One-page layout</div>
       </div>
     </div>
   </header>
@@ -122,8 +154,8 @@
   <main class="container">
     <section class="card onepager">
 
-      <!-- Screen top bar -->
-      <div class="onepager-top">
+      <!-- Screen top -->
+      <div class="onepager-top screen-only">
         <div>
           <div class="op-title">प्राथमिक विवरण (One-Pager)</div>
           <div class="op-sub" id="opSub"></div>
@@ -134,14 +166,14 @@
         </div>
       </div>
 
-      <!-- Screen body (easy view) -->
-      <div id="opBody" class="op-body"></div>
+      <!-- Screen body -->
+      <div id="opBody" class="op-body screen-only"></div>
 
-      <div class="op-note">
+      <div class="op-note screen-only">
         नोट: यह पेज केवल त्वरित संदर्भ हेतु है। अंतिम निर्णय/स्वीकृति बैंक के नियमों व सक्षम प्राधिकारी के अनुसार होगी।
       </div>
 
-      <!-- PRINT HEADER (PDF ONLY) -->
+      <!-- ===================== PRINT HEADER ===================== -->
       <div class="print-only print-header">
         <img src="assets/mpgb_header.png" alt="MPGB Header" class="print-banner">
       </div>
@@ -151,84 +183,77 @@
         <div><b>शाखा</b> : <span id="pBranch2"></span></div>
       </div>
 
-      <!-- PRINT TABLE (PDF ONLY) -->
+      <!-- ===================== MAIN PRINT TABLE ===================== -->
       <table class="print-only print-table">
         <tr>
           <th class="pt-center" colspan="3">एनपीए प्रबंधन के अंतर्गत समझौता स्वीकृति हेतु प्राथमिक जानकारी</th>
         </tr>
 
-        <tr><td class="c1">1</td><td class="c2">हितग्राही का नाम</td><td id="pName"></td></tr>
-        <tr><td class="c1">2</td><td class="c2">हितग्राही का मोबाइल नंबर</td><td id="pMobile"></td></tr>
-        <tr><td class="c1">3</td><td class="c2">ऋण का उद्देश्य (Scheme)</td><td id="pScheme"></td></tr>
-        <tr><td class="c1">4</td><td class="c2">खाता क्रमांक</td><td id="pAccount"></td></tr>
-        <tr><td class="c1">5</td><td class="c2">स्वीकृति दिनांक</td><td id="pSanctionDate"></td></tr>
-        <tr><td class="c1">6</td><td class="c2">स्वीकृत राशि</td><td id="pSanctionAmt"></td></tr>
-        <tr><td class="c1">7</td><td class="c2">बकाया राशि</td><td id="pOutstanding"></td></tr>
-        <tr><td class="c1">8</td><td class="c2">एनपीए दिनांक</td><td id="pNpaDate"></td></tr>
-        <tr><td class="c1">9</td><td class="c2">आस्ति कोड</td><td id="pAsset"></td></tr>
-        <tr><td class="c1">10</td><td class="c2">प्रावधान</td><td id="pProvision"></td></tr>
-        <tr><td class="c1">11</td><td class="c2">UCI</td><td id="pUci"></td></tr>
-        <tr><td class="c1">12</td><td class="c2">URI</td><td id="pUri"></td></tr>
-        <tr><td class="c1">13</td><td class="c2">प्रस्तावित समझौता राशि</td><td id="pOts"></td></tr>
+        <tr><td class="c1">1</td><td class="c2">हितग्राही का नाम</td><td class="c3" id="pName"></td></tr>
+        <tr><td class="c1">2</td><td class="c2">हितग्राही का मोबाइल नंबर</td><td class="c3" id="pMobile"></td></tr>
+        <tr><td class="c1">3</td><td class="c2">ऋण का उद्देश्य (Scheme)</td><td class="c3" id="pScheme"></td></tr>
+        <tr><td class="c1">4</td><td class="c2">खाता क्रमांक</td><td class="c3" id="pAccount"></td></tr>
+        <tr><td class="c1">5</td><td class="c2">स्वीकृति दिनांक</td><td class="c3" id="pSanctionDate"></td></tr>
+        <tr><td class="c1">6</td><td class="c2">स्वीकृत राशि</td><td class="c3" id="pSanctionAmt"></td></tr>
+        <tr><td class="c1">7</td><td class="c2">बकाया राशि</td><td class="c3" id="pOutstanding"></td></tr>
+        <tr><td class="c1">8</td><td class="c2">एनपीए दिनांक</td><td class="c3" id="pNpaDate"></td></tr>
+        <tr><td class="c1">9</td><td class="c2">आस्ति कोड</td><td class="c3" id="pAsset"></td></tr>
+        <tr><td class="c1">10</td><td class="c2">प्रावधान</td><td class="c3" id="pProvision"></td></tr>
+        <tr><td class="c1">11</td><td class="c2">UCI</td><td class="c3" id="pUci"></td></tr>
+        <tr><td class="c1">12</td><td class="c2">URI</td><td class="c3" id="pUri"></td></tr>
+        <tr><td class="c1">13</td><td class="c2">प्रस्तावित समझौता राशि</td><td class="c3" id="pOts"></td></tr>
+        <tr><td class="c1">14</td><td class="c2">समझौता राशि का प्रतिशत</td><td class="c3" id="pOtsPct"></td></tr>
+        <tr><td class="c1">15</td><td class="c2">अधित्याग (W/O)</td><td class="c3" id="pWO"></td></tr>
+        <tr><td class="c1">16</td><td class="c2">लाभ-हानि का प्रभाव</td><td class="c3" id="pPLImpact"></td></tr>
+        <tr><td class="c1">17</td><td class="c2">कुल अधित्याग</td><td class="c3" id="pTotalSacrifice"></td></tr>
 
-        <tr><td class="c1">14</td><td class="c2">समझौता राशि का प्रतिशत</td><td id="pOtsPct"></td></tr>
-        <tr><td class="c1">15</td><td class="c2">अधित्याग (W/O)</td><td id="pWO"></td></tr>
-        <tr><td class="c1">16</td><td class="c2">लाभ-हानि का प्रभाव</td><td id="pPLImpact"></td></tr>
-        <tr><td class="c1">17</td><td class="c2">कुल अधित्याग</td><td id="pTotalSacrifice"></td></tr>
-
-        <tr><td class="c1">18</td><td class="c2">सुरक्षा प्रताभूति का विवरण (बंधक/दृष्टि बंधक/चेक)</td><td></td></tr>
-        <tr><td class="c1">19</td><td class="c2">कानूनी कार्यवाही (वाद दायर/138/डीआरटी/टिक्की/आर.आर.सी.)</td><td></td></tr>
-        <tr><td class="c1">20</td><td class="c2">दस्तावेज़ की स्थिति (Update/Timebarred)</td><td></td></tr>
-        <tr><td class="c1">21</td><td class="c2">ऋणी की स्थिति (Diseased/alive/Physically disabled/Serious illness)</td><td></td></tr>
-        <tr><td class="c1">22</td><td class="c2">धोखाधड़ी / एफ.आई.आर. की स्थिति</td><td></td></tr>
-        <tr><td class="c1">23</td><td class="c2">ऋण वसूली के प्रयास</td><td></td></tr>
-        <tr><td class="c1">24</td><td class="c2">भविष्य में वसूली की संभावनाएं</td><td></td></tr>
-        <tr><td class="c1">25</td><td class="c2">सिविल/क्रि. की स्थिति (रूको एवं ऋण खातों की स्थिति)</td><td></td></tr>
-        <tr><td class="c1">26</td><td class="c2">एसआर की स्थिति</td><td></td></tr>
+        <tr><td class="c1">18</td><td class="c2">सुरक्षा प्रताभूति का विवरण (बंधक/दृष्टि बंधक/चेक)</td><td class="c3"></td></tr>
+        <tr><td class="c1">19</td><td class="c2">कानूनी कार्यवाही (वाद दायर/138/डीआरटी/टिक्की/आर.आर.सी.)</td><td class="c3"></td></tr>
+        <tr><td class="c1">20</td><td class="c2">दस्तावेज़ की स्थिति (Update/Timebarred)</td><td class="c3"></td></tr>
+        <tr><td class="c1">21</td><td class="c2">ऋणी की स्थिति (Diseased/alive/Physically disabled/Serious illness)</td><td class="c3"></td></tr>
+        <tr><td class="c1">22</td><td class="c2">धोखाधड़ी / एफ.आई.आर. की स्थिति</td><td class="c3"></td></tr>
+        <tr><td class="c1">23</td><td class="c2">ऋण वसूली के प्रयास</td><td class="c3"></td></tr>
+        <tr><td class="c1">24</td><td class="c2">भविष्य में वसूली की संभावनाएं</td><td class="c3"></td></tr>
+        <tr><td class="c1">25</td><td class="c2">सिविल/क्रि. की स्थिति (रूको एवं ऋण खातों की स्थिति)</td><td class="c3"></td></tr>
+        <tr><td class="c1">26</td><td class="c2">एसआर की स्थिति</td><td class="c3"></td></tr>
       </table>
-<table class="print-only print-table sign-as-rows">
 
-  <tr>
-    <td class="c1 pt-left" colspan="3">
-      <b>शाखा प्रबंधक का अभिमत</b>
-      <span class="muted">(बिंदु क्र. 17 से 26 के अनुसार)</span>
-    </td>
-  </tr>
+      <!-- ===================== SIGNATURE / OPINION (PRINT ONLY) ===================== -->
+      <table class="print-only print-table sign-final">
+        <tr>
+          <td colspan="3" class="sign-title">
+            <b>शाखा प्रबंधक का अभिमत</b> <span class="muted">(बिंदु क्र. 17 से 26 के अनुसार)</span> :-
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"><div class="sign-area"></div></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding:0 !important;">
+            <div class="ds-wrap">
+              <div class="ds-cell"><b>दिनांक</b></div>
+              <div class="ds-cell pt-right"><b>शाखा प्रबंधक</b></div>
+            </div>
+          </td>
+        </tr>
 
-  <tr>
-    <td class="c1 pt-center"></td>
-    <td class="c2" colspan="2">
-      <div class="sign-area"></div>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="c1 pt-left">दिनांक</td>
-    <td class="c2"><div class="sign-line"></div></td>
-    <td class="pt-right"><b>शाखा प्रबंधक</b></td>
-  </tr>
-
-  <tr>
-    <td class="c1 pt-center" colspan="3">
-      <b>क्षेत्रीय कार्यालय</b>
-      <span class="muted">(RM/DRM/CMRD प्रमुख) का अभिमत</span>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="c1 pt-center"></td>
-    <td class="c2" colspan="2">
-      <div class="sign-area"></div>
-    </td>
-  </tr>
-
-  <tr>
-    <td class="c1 pt-center">दिनांक</td>
-    <td class="c2"><div class="sign-line"></div></td>
-    <td class="pt-right"><b>क्षेत्रीय प्रबंधक</b></td>
-  </tr>
-
-</table>
+        <tr>
+          <td colspan="3" class="sign-title">
+            <b>क्षेत्रीय कार्यालय</b> <span class="muted">(RM/DRM/CMRD प्रमुख) का अभिमत</span> :-
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3"><div class="sign-area"></div></td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding:0 !important;">
+            <div class="ds-wrap">
+              <div class="ds-cell"><b>दिनांक</b></div>
+              <div class="ds-cell pt-right"><b>क्षेत्रीय प्रबंधक</b></div>
+            </div>
+          </td>
+        </tr>
+      </table>
 
     </section>
   </main>
