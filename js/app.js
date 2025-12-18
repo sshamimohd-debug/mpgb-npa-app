@@ -48,7 +48,7 @@ async function doSearch(){
     return;
   }
 
-  const rec = rows.find(r => String(r['Acct Number']) === acct);
+  const rec = Array.from(rows).find(r => String(r['Acct Number']) === acct);
   if(!rec){
     alert('Account not found');
     return;
