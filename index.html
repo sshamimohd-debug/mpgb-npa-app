@@ -1,81 +1,82 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MPGB NPA Quick Search</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8">
+
+  <!-- Mobile viewport -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- PWA basics -->
+  <title>EMI Calculator App</title>
+  <link rel="manifest" href="./manifest.json">
+  <meta name="theme-color" content="#0d6efd">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="./style.css">
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
-  <header class="app-header">
-    <div class="brand">
-      <img src="assets/mpgb_header.png" alt="MPGB" onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='flex';"/><div class="logo" id="logoFallback" style="display:none;">MPGB</div>
-      <div>
-        <div class="title">NPA Quick Search</div>
-        <div class="subtitle">GitHub Pages • Mobile friendly • Offline-friendly data chunks</div>
-      </div>
+
+  <div class="card">
+
+    <!-- EMI Image -->
+    <img src="./emi.png" class="top-img" alt="EMI Calculator">
+
+    <h2>EMI Calculator</h2>
+
+    <!-- Loan Amount -->
+    <label>Loan Amount (₹)</label>
+    <input type="range" id="loan" min="50000" max="5000000" step="50000"
+           value="50000"
+           oninput="loanVal.innerText=this.value">
+    <div class="value">₹ <span id="loanVal">50000</span></div>
+
+    <!-- Interest Rate -->
+    <label>Interest Rate (%)</label>
+    <input type="range" id="rate" min="1" max="20" step="0.1"
+           value="7"
+           oninput="rateVal.innerText=this.value">
+    <div class="value"><span id="rateVal">7</span> %</div>
+
+    <!-- Tenure -->
+    <label>Tenure (Years)</label>
+    <input type="range" id="years" min="1" max="30"
+           value="20"
+           oninput="yearVal.innerText=this.value">
+    <div class="value"><span id="yearVal">20</span> Years</div>
+
+    <!-- Button -->
+    <button onclick="calculateEMI()">Calculate EMI</button>
+
+    <!-- Results -->
+    <div class="result">
+      <p>Monthly EMI: ₹ <span id="emi">0</span></p>
+      <p>Total Payment: ₹ <span id="total">0</span></p>
+      <p>Total Interest: ₹ <span id="interest">0</span></p>
     </div>
-  </header>
 
-  <main class="container">
-    <section class="card">
-      <h2>Search account</h2>
+    <!-- Chart -->
+    <canvas id="chart"></canvas>
 
-      <div class="grid">
-        <label class="field">
-          <span>Account Number</span>
-          <input id="acct" inputmode="numeric" placeholder="e.g., 20011234567890" />
-        </label>
+    <!-- Dark Mode -->
+    <button class="dark" onclick="toggleDark()">🌙 Dark Mode</button>
 
-        <label class="field">
-          <span>Date</span>
-          <input id="dt" type="date" />
-        </label>
+  </div>
 
-        <label class="field">
-          <span>Proposed Compromise Amt</span>
-          <input id="amt" inputmode="decimal" placeholder="e.g., 50000" />
-        </label>
+  <!-- Logic -->
+  <script src="./script.js"></script>
 
-        <label class="field field-wide">
-          <span>Remarks (optional)</span>
-          <textarea id="remarks" rows="2" placeholder="Any follow-up / note..."></textarea>
-        </label>
-      </div>
+  <!-- Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js');
+      });
+    }
+  </script>
 
-      <div class="actions">
-        <button id="btnSearch" class="btn primary">Search</button>
-        <button id="btnClear" class="btn">Clear</button>
-      </div>
-
-      <p class="hint">
-        Tip: Data is stored in <code>data/chunks/*.json</code> and listed in <code>data/chunks/manifest.json</code>.
-        For full data, run <code>tools/xlsb_to_chunks.py</code> on your PC to generate all chunks, then upload to GitHub.
-      </p>
-    </section>
-
-    <section class="card" id="resultCard" hidden>
-      <div class="result-head">
-        <h2>Result</h2>
-        <div class="result-actions">
-          <button id="btnOnePager" class="btn primary">Open One-Pager</button>
-          <button id="btnSave" class="btn">Save Follow-up</button>
-        </div>
-      </div>
-
-      <div id="result" class="result"></div>
-
-      <details class="details">
-        <summary>Saved follow-up for this account</summary>
-        <pre id="savedBox" class="saved"></pre>
-      </details>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div>Made for branch-level use • Works on mobile browser • No server required</div>
-  </footer>
-
-  <script src="js/app.js"></script>
 </body>
 </html>
